@@ -1,0 +1,21 @@
+export const TYPES = {
+  AxBankOnboarding: Symbol('AxBankOnboarding'),
+  AxBankAuthorization: Symbol('AxBankAuthorization'),
+  AxBankCredentials: Symbol('AxBankCredentials'),
+  AxBankLoginService: Symbol('AxBankLoginService'),
+  AxAccountService: Symbol('AxAccountService'),
+  AxTransferService: Symbol('AxTransferService'),
+  CustomerService: Symbol('CustomerService'),
+  AxTransferStrategy: Symbol('AxTransferStrategy'),
+  AxBankCardService: Symbol('AxBankCardService'),
+  AxBankDepositService: Symbol('AxBankDepositService'),
+  JumioService: Symbol('JumioService'),
+  P2PTransferService: Symbol('P2PTransferService'),
+  P2PTransferStrategy: Symbol('P2PTransferStrategy'),
+  ContactService: Symbol('ContactService'),
+  FundRequestService: Symbol('FundRequestService'),
+  BillPayService: Symbol('BillPayService'),
+  BillPayStrategy: Symbol('BillPayStrategy'),
+  PromotionService: Symbol('PromotionService'),
+  UrbanAirshipService: Symbol('UrbanAirshipService')
+};

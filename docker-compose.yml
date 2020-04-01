@@ -1,0 +1,31 @@
+version: '3.7'
+# Need .env file contains followings:
+#   NODE_ENV=development
+#   MONGODB_URI=mongo
+#   DATA_PATH=./data
+
+services:
+  member-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: $NODE_ENV
+    image: 'meedservice/member-service'
+    container_name: 'member-service'
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - MONGODB_URI=$MONGODB_URI
+    ports:
+      - '6064:6064'
+
+  mongo:
+    image: mongo:4.2.0-bionic
+    container_name: mongo
+    restart: unless-stopped
+    volumes:
+      - /data/db
+    ports:
+      - 27017
