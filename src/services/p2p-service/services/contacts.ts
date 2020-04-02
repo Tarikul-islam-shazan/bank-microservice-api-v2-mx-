@@ -36,7 +36,7 @@ export abstract class ContactService implements IBankService {
 
 @injectable()
 class AxContactService extends ContactService {
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
 

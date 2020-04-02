@@ -36,13 +36,13 @@ export class AxxiomeOnboardingService implements IOnboardingService {
   private auth: IAuthorization;
 
   @inject(TYPES.PromotionService)
-  @named(BankIdentifier.Axiomme)
+  @named(BankIdentifier.Invex)
   private promotionService: IPromotionService;
 
   @inject(TYPES.UrbanAirshipService)
   private uasService: IUrbanAirshipService;
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     this.auth = injectedAuth;
   }
 
@@ -421,7 +421,7 @@ export class AxxiomeOnboardingService implements IOnboardingService {
         channelId: emailLookup.channelId,
         applicationStatus: status,
         contextId,
-        bank: BankIdentifier.Axiomme,
+        bank: BankIdentifier.Invex,
         language: member.language
       };
 

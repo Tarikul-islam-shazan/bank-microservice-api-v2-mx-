@@ -8,7 +8,7 @@ export class ServiceFactory {
   private static axOnboardingService = new AxxiomeOnboardingService(null);
 
   public static getService(identifier: BankIdentifier): IOnboardingService {
-    if (identifier === BankIdentifier.Axiomme) {
+    if (identifier === BankIdentifier.Invex) {
       return this.axOnboardingService;
     } else {
       return this.axOnboardingService;

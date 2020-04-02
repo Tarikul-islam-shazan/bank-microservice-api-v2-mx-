@@ -66,7 +66,7 @@ describe('Customer Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/customer`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).not.toBeCalled();
@@ -91,7 +91,7 @@ describe('Customer Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/customer`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy')
         .set('meedbankingclub-memberid', updateCustomerHeaders['meedbankingclub-memberid']);
 

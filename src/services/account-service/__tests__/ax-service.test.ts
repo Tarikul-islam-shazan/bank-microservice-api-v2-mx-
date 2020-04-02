@@ -40,7 +40,7 @@ describe('Bank Account Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/bank/accounts`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).toBeCalledTimes(1);
@@ -59,7 +59,7 @@ describe('Bank Account Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/bank/accounts`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).toBeCalledTimes(1);
@@ -89,7 +89,7 @@ describe('Bank Account Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/bank/accounts/${mockAccountId}/transactions`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).toBeCalledTimes(1);
@@ -110,7 +110,7 @@ describe('Bank Account Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/bank/accounts/${mockAccountId}/transactions`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).toBeCalledTimes(1);
@@ -126,7 +126,7 @@ describe('Bank Account Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/bank/accounts/${mockAccountId}/transactions`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).toBeCalledTimes(1);
@@ -146,7 +146,7 @@ describe('Bank Account Service', () => {
           })}`
         )
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(axios.create().post as jest.Mock).toBeCalledTimes(1);
