@@ -11,6 +11,12 @@ import { IOnboardingService, Credential } from '../models/bank-onboarding/interf
 import { TYPES } from '../../utils/ioc/types';
 
 export class OnboardingController {
+  private static createServiceAndSetAuth(req: MeedRequest): IOnboardingService {
+    const service = DIContainer.getNamed<IOnboardingService>(TYPES.BankOnboarding, req.bankId);
+    service.getAuthorizationService().setHeadersAndToken(req.headers, req.token);
+    return service;
+  }
+
   public static async createLogin(req: MeedRequest, res: Response): Promise<any> {
     const { username } = req.body;
     const memberId = req.headers['meedbankingclub-memberid'] as string;
@@ -42,7 +48,7 @@ export class OnboardingController {
    * @memberof OnboardingController
    * @version v1.0.0
    */
-  public static async applyForAccount(req: Request, res: Response): Promise<any> {
+  public static async applyForAccount(req: Request, res: Response): Promise<void> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).applyForAccount(memberId, req.body);
     res.status(200).json(response);
@@ -166,13 +172,5 @@ export class OnboardingController {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).fundAccount(memberId, req.body);
     res.status(200).json(response);
-  }
-
-  private static createServiceAndSetAuth(req: MeedRequest): IOnboardingService {
-    // const service = OnboardingServiceFactory.getService((req as MeedRequest).bankId);
-    // const auth = BankAuthFactory.getService(req);
-    const service = DIContainer.getNamed<IOnboardingService>(TYPES.AxBankOnboarding, req.bankId);
-    service.getAuthorizationService().setHeadersAndToken(req.headers, req.token);
-    return service;
   }
 }

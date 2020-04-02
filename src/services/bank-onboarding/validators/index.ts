@@ -1,6 +1,12 @@
-import Joi, { required } from '@hapi/joi';
+import Joi from '@hapi/joi';
 import moment from 'moment';
-import { IdentityType, ArmedForceRelation } from '../../models/bank-onboarding/interface';
+import {
+  IdentityType,
+  ArmedForceRelation,
+  AccountSelection,
+  Sex,
+  MaritalStatus
+} from '../../models/bank-onboarding/interface';
 
 const validateDate = value => {
   if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
@@ -24,121 +30,80 @@ export const CreateLogin = Joi.object({
   password: Joi.string().required()
 });
 
+const CommonInfo = Joi.object({
+  firstName: Joi.string().required(),
+  secondName: Joi.string().optional(),
+  dateOfBirth: Joi.string().required(),
+  paternalLastName: Joi.string().required(),
+  maternalLastName: Joi.string().optional()
+});
+
 export const ApplyForAccount = Joi.object({
-  memberApplication: Joi.object({
-    email: Joi.string().required(),
-    prefix: Joi.string()
-      .allow('')
-      .optional(),
-    firstName: Joi.string().required(),
-    middleName: Joi.string()
-      .allow('')
-      .optional(),
-    lastName: Joi.string().required(),
-    dateOfBirth: Joi.string()
-      .custom(validateDate)
-      .required(),
-    addressLine1: Joi.string()
-      .allow('')
-      .optional(),
-    addressLine2: Joi.string()
-      .allow('')
-      .optional(),
-    city: Joi.string().required(),
-    mobilePhone: Joi.string().required(),
-    workPhone: Joi.string()
-      .allow('')
-      .optional(),
-    zipCode: Joi.string().required(),
-    state: Joi.string().required(),
-    identityType: Joi.string()
-      .valid(...Object.values(IdentityType))
-      .required(),
-    identityNumber: Joi.string().required(),
-    socialSecurityNo: Joi.string().required(),
-    country: Joi.string().required(),
-    occupation: Joi.string().required(),
-    isRelatedToArmedForces: Joi.string()
-      .valid(...Object.values(ArmedForceRelation))
-      .required(),
-    armedForcesMemberFirstName: Joi.string().when('isRelatedToArmedForces', {
-      is: ArmedForceRelation.Dependent,
-      then: Joi.required(),
-      otherwise: Joi.allow('').optional()
+  application: Joi.object({
+    generalInfo: CommonInfo.append({
+      curp: Joi.string().required(),
+      mobileNumber: Joi.string().required()
     }),
-    armedForcesMemberLastName: Joi.string().when('isRelatedToArmedForces', {
-      is: ArmedForceRelation.Dependent,
-      then: Joi.required(),
-      otherwise: Joi.allow('').optional()
+    addressInfo: Joi.object({
+      addressType: Joi.string().required(),
+      propertyType: Joi.string().required(),
+      street: Joi.string().required(),
+      outdoorNumber: Joi.string().required(),
+      interiorNumber: Joi.string().required(),
+      postCode: Joi.string().required(),
+      state: Joi.string().required(),
+      municipality: Joi.string().required(),
+      city: Joi.string().required(),
+      suburb: Joi.string().required(),
+      timeAtResidence: Joi.string().required()
     }),
-    armedForcesSocialSecurityPin: Joi.string().when('isRelatedToArmedForces', {
-      is: ArmedForceRelation.Dependent,
-      then: Joi.required(),
-      otherwise: Joi.allow('').optional()
+    beneficiaryInfo: CommonInfo.append({
+      selfFundSource: Joi.boolean()
+        .strict()
+        .required(),
+      fundSourceInfo: CommonInfo.when('selfFundSource', { is: false, then: Joi.required() })
     }),
-    armedForcesDob: Joi.string().when('isRelatedToArmedForces', {
-      is: ArmedForceRelation.Dependent,
-      then: Joi.custom(validateDate).required(),
-      otherwise: Joi.allow('').optional()
-    }),
-    sourceOfIncome: Joi.string().required(),
-    monthlyWithdrawal: Joi.string().required(),
-    monthlyDeposit: Joi.string().required(),
-    monthlyIncome: Joi.string()
-      .allow('')
-      .optional(),
-    workPhoneExtension: Joi.string()
-      .allow('')
-      .optional()
-  }),
-  scannedIdData: Joi.object({
-    reference: Joi.string().required(),
-    extractionMethod: Joi.string()
-      .allow('')
-      .optional(),
-    firstName: Joi.string()
-      .allow('')
-      .optional(),
-    lastName: Joi.string()
-      .allow('')
-      .optional(),
-    dateOfBirth: Joi.string()
-      .allow('')
-      .optional(),
-    gender: Joi.string()
-      .allow('')
-      .valid('m', 'f')
+    accountSelection: Joi.string()
+      .valid(...Object.values(AccountSelection))
       .required(),
-    addressLine: Joi.string()
-      .allow('')
-      .optional(),
-    postCode: Joi.string()
-      .allow('')
-      .optional(),
-    city: Joi.string()
-      .allow('')
-      .optional(),
-    subdivision: Joi.string()
-      .allow('')
-      .optional(),
-    country: Joi.string()
-      .allow('')
-      .optional(),
-    identificationType: Joi.string()
-      .allow('')
-      .optional(),
-    idNumber: Joi.string()
-      .allow('')
-      .optional(),
-    issuingCountry: Joi.string()
-      .allow('')
-      .optional(),
-    issuingDate: Joi.string()
-      .allow('')
-      .optional(),
-    expiryDate: Joi.string()
-      .allow('')
-      .optional()
+    personalInfo: Joi.object({
+      countryOfBirth: Joi.string().required(),
+      nationality: Joi.string().required(),
+      placeOfBirth: Joi.string().required(),
+      sex: Joi.string()
+        .valid(...Object.values(Sex))
+        .required(),
+      maritalStatus: Joi.string()
+        .valid(...Object.values(MaritalStatus))
+        .required(),
+      hightLevelOfEducation: Joi.string().required(),
+      profession: Joi.string().required(),
+      occupation: Joi.string().required(),
+      economicActivity: Joi.string().required(),
+      banxicoActivity: Joi.string().required()
+    }),
+    moreInfo: Joi.object({
+      holdGovPosition: Joi.boolean()
+        .strict()
+        .required(),
+      positionInfo: Joi.object({
+        position: Joi.string().required(),
+        association: Joi.string().required()
+      }).when('holdGovPosition', { is: true, then: Joi.required() }),
+      relativeHoldGovPosition: Joi.boolean()
+        .strict()
+        .when('holdGovPosition', { is: true, then: Joi.required() }),
+      relativeInfo: Joi.object({
+        firstName: Joi.string().required(),
+        secondName: Joi.string().optional(),
+        paternalLastName: Joi.string().required(),
+        maternalLastName: Joi.string().optional(),
+        position: Joi.string().required(),
+        homeAddress: Joi.string().required(),
+        phone: Joi.string().required(),
+        participationPersent: Joi.number().required()
+      }).when('relativeHoldGovPosition', { is: true, then: Joi.required() })
+    }).when('accountSelection', { is: AccountSelection.Express, then: Joi.required() })
   })
 });
 

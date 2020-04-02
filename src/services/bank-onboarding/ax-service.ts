@@ -8,7 +8,7 @@ import {
   RegistrationFeeRequest,
   FundAccountResponse,
   BankApplication,
-  USMemberInfo,
+  MxMemberInfo,
   IScannedIdData,
   TncResponse
 } from '../models/bank-onboarding/interface';
@@ -25,24 +25,23 @@ import { injectable, inject, named } from 'inversify';
 import { TYPES } from '../../utils/ioc/types';
 import config from '../../config/config';
 import { IPromotionService, AxPromotionCode } from '../models/promotion-service/interface';
-import logger from '../../utils/logger';
 import { IUrbanAirshipService } from '../models/urban-airship/interface';
 import httpContext from 'express-http-context';
 import uuidv4 from 'uuid/v4';
 import { AccountType } from '../models/account-service/interface';
 
 @injectable()
-export class AxxiomeOnboardingService implements IOnboardingService {
+export class IvxOnboardingService implements IOnboardingService {
   private auth: IAuthorization;
 
   @inject(TYPES.PromotionService)
-  @named(BankIdentifier.Axiomme)
+  @named(BankIdentifier.Invex)
   private promotionService: IPromotionService;
 
   @inject(TYPES.UrbanAirshipService)
   private uasService: IUrbanAirshipService;
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     this.auth = injectedAuth;
   }
 
@@ -57,43 +56,8 @@ export class AxxiomeOnboardingService implements IOnboardingService {
   async createLogin(username: string, credential: Credential): Promise<void> {
     const headers = await this.auth.getBankHeaders();
     const apiBody = RequestMapper.createLogin(credential);
-    try {
-      await MeedAxios.getAxiosInstance().post(
-        `/userManagement/${config.api.axxiome.version}/users/${username}/provision`,
-        { ...apiBody },
-        headers
-      );
-    } catch (error) {
-      const { errorCode, httpCode, message } = OnboardingErrMapper.mapCreateLoginError(error);
-      throw new HTTPError(message, errorCode, httpCode);
-    }
+    // TODO: need to update for mexico invex bank
   }
-
-  //#region dummy jumio web hook
-  /**
-   * TODO: This method will be called automatically by jumio.
-   * TODO: need to setup the web hook routes
-   *
-   * @param {string} username
-   * @returns
-   * @memberof AxxiomeOnboardingService
-   */
-  async jumioWebHookCallback(username: string) {
-    try {
-      const headers = await this.auth.getBankHeaders();
-      const apiBody = RequestMapper.jumioWebHookRequest(username);
-      const response = await MeedAxios.getAxiosInstance().post(
-        `/jumioEvents/${config.api.axxiome.version}/jumio/events?seckey=TUVFRF9BUElfVVNFUjo1OFV6UXpiRUZoeDllVW5I`,
-        { ...apiBody },
-        headers
-      );
-      return response.data;
-    } catch (error) {
-      // console.log(error);
-      throw new HTTPError('Jumio web hook submission to axxiome failed');
-    }
-  }
-  //#endregion
 
   //#region apply for account
   /**
@@ -103,76 +67,22 @@ export class AxxiomeOnboardingService implements IOnboardingService {
    *
    * @param {string} memberId
    * @param {BankApplication} application
-   * @returns {(Promise<IMember | IdentityQuestions>)}
-   * @memberof AxxiomeOnboardingService
+   * @returns {(Promise<IMember>)}
+   * @memberof IvxOnboardingService
    * @version v1.0.0
    */
-  async applyForAccount(memberId: string, application: BankApplication): Promise<IMember | IdentityQuestions> {
+  async applyForAccount(memberId: string, application: BankApplication): Promise<IMember> {
     // before apply for account there will be a call to axxiome from jumio web hook
-    const memberInfo = application.memberApplication as USMemberInfo;
-    const scannedIdData = application.scannedIdData as IScannedIdData;
+    // const memberInfo = application.memberApplication as MxMemberInfo;
+    // const scannedIdData = application.scannedIdData as IScannedIdData;
 
-    // TODO: this is just for bypassing jumio web hook. as we test it from postman
-    await this.jumioWebHookCallback(memberInfo.firstName);
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.BankApplicationSubmitted
+      // applicationStatus: ApplicationStatus.Denied
+    });
 
-    // add corporate customer id if inviters type is corporate
-    const member = await MeedService.findMemberById(memberId);
-    if (member.inviter) {
-      const inviter = await MeedService.findMemberById(member.inviter);
-      (memberInfo as any).corporateCustomerId = inviter.memberType === MemberType.Corporate ? inviter.customerId : '';
-    }
-
-    const apiBody = RequestMapper.applyForAccount(memberInfo, scannedIdData);
-    try {
-      const headers = await this.auth.getBankHeaders();
-      const response = await MeedAxios.getAxiosInstance().post(
-        `/customerOnboarding/2.3.0/onboardings/customers`,
-        { ...apiBody },
-        headers
-      );
-      const httpCode = response.status;
-      if (httpCode === 200) {
-        // http code 200 indicates that we need identity verification(KYC) for this user
-        // that means applicationProgress is bank application submitted and identity question viewed
-        // updating status twice because it will create two transition
-        await MeedService.updateMember({
-          id: memberId,
-          applicationProgress: ApplicationProgress.BankApplicationSubmitted
-        });
-        await MeedService.updateMember({
-          id: memberId,
-          applicationProgress: ApplicationProgress.IdentityQuestionsViewed
-        });
-        return ResponseMapper.applyForAccountIdentity(response.data);
-      } else if (httpCode === 201) {
-        // SignUp successful, no identity verification required for this user.
-        const customer = ResponseMapper.applyForAccountComplete(response.data);
-        await MeedService.updateMember({
-          id: memberId,
-          customerId: customer.customerId,
-          applicationProgress: ApplicationProgress.BankApplicationSubmitted
-        });
-
-        return customer;
-      } else {
-        throw new Error('Unknown status code in apply for account response');
-      }
-    } catch (error) {
-      const { errorCode, httpCode, message } = OnboardingErrMapper.mapApplyForAccountError(error);
-
-      // TODO: need to discuss about http error for UAS service
-      if (httpCode === 406) {
-        await MeedService.updateMember({
-          id: memberId,
-          applicationProgress: ApplicationProgress.BankApplicationSubmitted,
-          applicationStatus: ApplicationStatus.Denied
-        });
-
-        await this.pushEvent(memberId, 'APPLICATION_DENIED', 'Denied');
-      }
-
-      throw new HTTPError(message, errorCode, httpCode);
-    }
+    return member;
   }
   //#endregion
 
@@ -245,7 +155,7 @@ export class AxxiomeOnboardingService implements IOnboardingService {
    *
    * @param {IdentityAnswers} answers
    * @returns {Promise<any>}
-   * @memberof AxxiomeOnboardingService
+   * @memberof IvxOnboardingService
    * @version v1.0.0
    */
   async setIdentityQuestionsAnswers(answers: IdentityAnswers): Promise<any> {
@@ -410,7 +320,7 @@ export class AxxiomeOnboardingService implements IOnboardingService {
    * @param {IError} errResponse
    * @param {string} memberId
    * @returns {Promise<void>}
-   * @memberof AxxiomeOnboardingService
+   * @memberof IvxOnboardingService
    */
   private async pushEvent(memberId: string, tag: string, status: string): Promise<void> {
     try {
@@ -421,7 +331,7 @@ export class AxxiomeOnboardingService implements IOnboardingService {
         channelId: emailLookup.channelId,
         applicationStatus: status,
         contextId,
-        bank: BankIdentifier.Axiomme,
+        bank: BankIdentifier.Invex,
         language: member.language
       };
 

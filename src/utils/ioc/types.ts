@@ -1,5 +1,5 @@
 export const TYPES = {
-  AxBankOnboarding: Symbol('AxBankOnboarding'),
+  BankOnboarding: Symbol('BankOnboarding'),
   AxBankAuthorization: Symbol('AxBankAuthorization'),
   AxBankCredentials: Symbol('AxBankCredentials'),
   AxBankLoginService: Symbol('AxBankLoginService'),
