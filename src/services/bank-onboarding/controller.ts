@@ -1,7 +1,7 @@
 import DIContainer from './../../utils/ioc/ioc';
 import { MeedRequest } from './../../interfaces/MeedRequest';
 import { IMember } from '../models/meedservice/member';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { ApplicationProgress, ApplicationStatus } from '../models/meedservice/member';
 import { ResponseMapper } from './mappers/';
 import { OnboardingErrMapper, ErrorCodes } from './errors';
@@ -39,7 +39,7 @@ export class OnboardingController {
   }
 
   /**
-   * User applied for bank account
+   * User applied for bank account general information
    *
    * @static
    * @param {Request} req
@@ -48,9 +48,9 @@ export class OnboardingController {
    * @memberof OnboardingController
    * @version v1.0.0
    */
-  public static async applyForAccount(req: Request, res: Response): Promise<void> {
+  public static async generalInformation(req: MeedRequest, res: Response): Promise<void> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
-    const response = await OnboardingController.createServiceAndSetAuth(req).applyForAccount(memberId, req.body);
+    const response = await OnboardingController.createServiceAndSetAuth(req).generalInformation(memberId, req.body);
     res.status(200).json(response);
   }
 
@@ -66,7 +66,7 @@ export class OnboardingController {
    * @memberof OnboardingController
    * @version v1.0.0
    */
-  public static async getIdentityQuestions(req: Request, res: Response): Promise<any> {
+  public static async getIdentityQuestions(req: MeedRequest, res: Response): Promise<any> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).getIdentityQuestions();
     await MeedService.updateMember({
@@ -87,7 +87,7 @@ export class OnboardingController {
    * @returns {Promise<any>}
    * @memberof OnboardingController
    */
-  public static async setIdentityQuestionsAnswers(req: Request, res: Response): Promise<any> {
+  public static async setIdentityQuestionsAnswers(req: MeedRequest, res: Response): Promise<any> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     try {
       let response = await OnboardingController.createServiceAndSetAuth(req).setIdentityQuestionsAnswers(req.body);
@@ -135,7 +135,7 @@ export class OnboardingController {
    * @memberof OnboardingController
    * @version v1.0.0
    */
-  public static async getTermsAndCondition(req: Request, res: Response): Promise<any> {
+  public static async getTermsAndCondition(req: MeedRequest, res: Response): Promise<any> {
     const memberId = req.get('meedbankingclub-memberid');
     const response = await OnboardingController.createServiceAndSetAuth(req).getTermsAndConditions(memberId);
     res.status(200).json(response);
@@ -153,7 +153,7 @@ export class OnboardingController {
    * @memberof OnboardingController
    * @version v1.0.0
    */
-  public static async acceptTermsAndConditions(req: Request, res: Response): Promise<any> {
+  public static async acceptTermsAndConditions(req: MeedRequest, res: Response): Promise<any> {
     const { isTermsAccepted, processId, corporateTncAccepted } = req.body;
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     // TODO: How we manage processId ? request body or in header
@@ -168,7 +168,7 @@ export class OnboardingController {
 
   //#endregion
 
-  public static async fundAccount(req: Request, res: Response): Promise<any> {
+  public static async fundAccount(req: MeedRequest, res: Response): Promise<any> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).fundAccount(memberId, req.body);
     res.status(200).json(response);
