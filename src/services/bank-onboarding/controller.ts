@@ -54,6 +54,22 @@ export class OnboardingController {
     res.status(200).json(response);
   }
 
+  /**
+   * User applied for bank account with beneficiary information
+   *
+   * @static
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Promise<any>}
+   * @memberof OnboardingController
+   * @version v1.0.0
+   */
+  public static async beneficiaryInformation(req: Request, res: Response): Promise<void> {
+    const memberId = req.headers['meedbankingclub-memberid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).beneficiaryInformation(memberId, req.body);
+    res.status(200).json(response);
+  }
+
   //#region  get identity question
 
   /**

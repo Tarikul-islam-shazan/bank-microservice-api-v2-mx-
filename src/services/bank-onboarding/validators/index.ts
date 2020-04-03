@@ -107,6 +107,8 @@ export const ApplyForAccount = Joi.object({
   })
 });
 
+export const BeneficiaryInfo = CommonInfo;
+
 export const AcceptTermsAndCondition = Joi.object({
   isTermsAccepted: Joi.boolean().required(),
   processId: Joi.string().required(),
