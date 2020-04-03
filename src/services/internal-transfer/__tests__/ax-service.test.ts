@@ -61,7 +61,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send({})
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyController).not.toBeCalled();
       expect(axios.create().post).not.toBeCalled();
@@ -77,7 +77,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(noDebtor)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyController).not.toBeCalled();
       expect(axios.create().post).not.toBeCalled();
@@ -93,7 +93,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(noCreditor)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyController).not.toBeCalled();
       expect(axios.create().post).not.toBeCalled();
@@ -109,7 +109,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(noAmount)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyController).not.toBeCalled();
       expect(axios.create().post).not.toBeCalled();
@@ -125,7 +125,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(nocurrency)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyController).not.toBeCalled();
       expect(axios.create().post).not.toBeCalled();
@@ -141,7 +141,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(nonotes)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(axios.create().post).toBeCalled();
       expect(response.status).toBe(200);
@@ -153,7 +153,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(nofrequency)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyController).not.toBeCalled();
       expect(axios.create().post).not.toBeCalled();
@@ -194,7 +194,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(mockImmediate.request)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(spyUtil).toBeCalled();
@@ -217,7 +217,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(mockSchedule.request)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(spyUtil).toBeCalled();
@@ -240,7 +240,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(mockWeekly.request)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(spyUtil).toBeCalled();
@@ -263,7 +263,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(mockMonthly.request)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(spyUtil).toBeCalled();
@@ -286,7 +286,7 @@ describe('Internal Transfer Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .send(mockYearly.request)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(spyUtil).toBeCalled();
@@ -333,7 +333,7 @@ describe('Internal Transfer Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('MeedBankingClub-username', 'meed.dummy');
 
       expect(response.status).toBe(200);
@@ -389,7 +389,7 @@ describe('Internal Transfer Service', () => {
           ...mockImmediate.request
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyImmediate).not.toBeCalled();
       expect(spySchedule).not.toBeCalled();
@@ -411,7 +411,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[0].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyImmediate).not.toBeCalled();
       expect(spySchedule).not.toBeCalled();
@@ -434,7 +434,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[0].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyUtil).toReturnWith(TransferType.Immediate);
       expect(spyImmediate).toBeCalled();
@@ -457,7 +457,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[1].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyUtil).toReturnWith(TransferType.Scheduled);
       expect(spyImmediate).not.toBeCalled();
@@ -478,7 +478,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[0].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyUtil).toReturnWith(TransferType.Recurring);
       expect(spyImmediate).not.toBeCalled();
@@ -505,7 +505,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[1].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(axios.create().put as jest.Mock).not.toBeCalled();
       expect(spyUtil).toReturnWith(TransferType.Immediate);
@@ -537,7 +537,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[0].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(axios.create().put as jest.Mock).not.toBeCalled();
       expect(spyUtil).toReturnWith(TransferType.Immediate);
@@ -569,7 +569,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[1].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(axios.create().put as jest.Mock).not.toBeCalled();
       expect(spyUtil).toReturnWith(TransferType.Scheduled);
@@ -601,7 +601,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[1].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(axios.create().put as jest.Mock).not.toBeCalled();
       expect(spyUtil).toReturnWith(TransferType.Recurring);
@@ -647,7 +647,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[1].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyImmediate).toBeCalled();
       expect(spySchedule).not.toBeCalled();
@@ -668,7 +668,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[1].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyImmediate).not.toBeCalled();
       expect(spySchedule).toBeCalled();
@@ -688,7 +688,7 @@ describe('Internal Transfer Service', () => {
           transferId: mockTransferList[0].transferId
         })
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(spyImmediate).not.toBeCalled();
       expect(spySchedule).not.toBeCalled();
@@ -730,7 +730,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -753,7 +753,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -776,7 +776,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -799,7 +799,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -822,7 +822,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -845,7 +845,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -868,7 +868,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(400);
         expect(spyUtil).toBeCalled();
@@ -896,7 +896,7 @@ describe('Internal Transfer Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/bank/internal-transfer`)
           .send(mockImmediate.request)
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
         expect(response.status).toBe(412);
         expect(spyUtil).toBeCalled();

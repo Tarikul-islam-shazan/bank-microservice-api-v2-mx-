@@ -29,7 +29,7 @@ export abstract class TransferStrategy implements IBankService {
 
 @injectable()
 export class ImmediateTransferStrategy extends TransferStrategy implements ITransferStrategy {
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
 
@@ -72,7 +72,7 @@ export class ImmediateTransferStrategy extends TransferStrategy implements ITran
 
 @injectable()
 export class ScheduledTransferStrategy extends TransferStrategy implements ITransferStrategy {
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
   public async transfer(transfer: ITransfer): Promise<any> {
@@ -144,7 +144,7 @@ export class ScheduledTransferStrategy extends TransferStrategy implements ITran
 
 @injectable()
 export class RecurringTransferStrategy extends TransferStrategy implements ITransferStrategy {
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
 

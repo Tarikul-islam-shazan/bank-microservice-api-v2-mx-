@@ -16,7 +16,7 @@ export const BankMock: IBank = {
   currency: 'USD',
   shortName: 'USA001',
   name: 'Valley National Bank',
-  identifier: BankIdentifier.Axiomme,
+  identifier: BankIdentifier.Invex,
   supportedLocales: [Locales.EN_US, Locales.ES_MX],
   banksSharingAtms: []
 };

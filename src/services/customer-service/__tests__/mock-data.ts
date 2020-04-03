@@ -70,7 +70,7 @@ const updateNameFiles = {
 };
 
 const updateContactHeaders = {
-  'meedbankingclub-bank-identifier': BankIdentifier.Axiomme,
+  'meedbankingclub-bank-identifier': BankIdentifier.Invex,
   'meedbankingclub-username': 'meed.test',
   'meedbankingclub-memberid': '5ddd08de9788d43f6f55c075'
 };

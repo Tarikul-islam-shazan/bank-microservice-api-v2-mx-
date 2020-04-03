@@ -23,7 +23,7 @@ import { ErrorMapper } from '../../utils/error-mapper/errorMapper';
 export class AxCustomerService implements ICustomerService {
   private auth: IAuthorization;
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     this.auth = injectedAuth;
   }
 

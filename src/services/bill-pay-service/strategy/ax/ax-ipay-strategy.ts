@@ -24,10 +24,10 @@ import config from '../../../../config/config';
 @injectable()
 export class AxIpayStrategy extends BillPayStrategy implements IBillPayStrategy {
   @inject(TYPES.AxAccountService)
-  @named(BankIdentifier.Axiomme)
+  @named(BankIdentifier.Invex)
   private accountService: IAccountService;
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
 
