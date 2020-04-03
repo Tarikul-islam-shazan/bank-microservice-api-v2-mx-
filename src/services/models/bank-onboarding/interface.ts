@@ -16,6 +16,7 @@ export interface IOnboardingService extends IBankService {
   ): Promise<ProductOnboardedResponse>;
   applyForAccount(memberId: string, application: BankApplication): Promise<IMember | IdentityQuestions>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
+  addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember>;
 }
 
 export interface Credential {

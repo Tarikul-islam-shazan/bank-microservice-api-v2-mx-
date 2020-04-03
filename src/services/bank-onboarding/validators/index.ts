@@ -107,6 +107,20 @@ export const ApplyForAccount = Joi.object({
   })
 });
 
+export const SignupAddressInfo = Joi.object({
+  addressType: Joi.string().required(),
+  propertyType: Joi.string().required(),
+  street: Joi.string().required(),
+  outdoorNumber: Joi.string().required(),
+  interiorNumber: Joi.string().required(),
+  postCode: Joi.string().required(),
+  state: Joi.string().required(),
+  municipality: Joi.string().required(),
+  city: Joi.string().required(),
+  suburb: Joi.string().required(),
+  timeAtResidence: Joi.string().required()
+});
+
 export const AcceptTermsAndCondition = Joi.object({
   isTermsAccepted: Joi.boolean().required(),
   processId: Joi.string().required(),

@@ -6,7 +6,8 @@ import {
   ApplyForAccount,
   AcceptTermsAndCondition,
   IdentityQuestionAnswers,
-  RegistrationFee
+  RegistrationFee,
+  SignupAddressInfo
 } from './validators';
 import { OnboardingController } from './controller';
 import AuthMiddleware from '../../middleware/authMiddleware';
@@ -28,6 +29,15 @@ export default [
       handleValidation(MemberIdRequired, ValidationLevel.Headers),
       handleValidation(ApplyForAccount),
       asyncWrapper(OnboardingController.applyForAccount)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/address-info',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(SignupAddressInfo),
+      asyncWrapper(OnboardingController.addressInfo)
     ]
   },
   {

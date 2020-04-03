@@ -10,7 +10,8 @@ import {
   BankApplication,
   MxMemberInfo,
   IScannedIdData,
-  TncResponse
+  TncResponse,
+  IAddressInfo
 } from '../models/bank-onboarding/interface';
 import { IMember, MemberType, AccountStatus } from '../models/meedservice/member';
 import { HTTPError } from '../../utils/httpErrors';
@@ -345,5 +346,24 @@ export class IvxOnboardingService implements IOnboardingService {
     } catch (error) {
       console.error('push event and tag failed: ', error);
     }
+  }
+
+  /**
+   * TODO: complete after getting mexico bank api's
+   *
+   * @param {string} memberId
+   * @param {IAddressInfo} addressInfo
+   * @returns {Promise<IMember>}
+   * @memberof IvxOnboardingService
+   */
+  async addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember> {
+    // const apiBody = RequestMapper.addressInfo(addressInfo);
+
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.AddressInfoCompleted
+    });
+
+    return member;
   }
 }
