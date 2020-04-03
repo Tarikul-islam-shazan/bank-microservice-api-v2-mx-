@@ -8,7 +8,7 @@ const prodConfig = {
   },
   port: process.env.PORT || 6064,
   database: {
-    url: `mongodb://${process.env.MONGODB_URI}/meed`
+    url: `mongodb://${process.env.MONGODB_URI}/meedv2-prod`
   },
   session: {
     secret: 'Z6?x4Td8D&W8j5zAMQv2uxFZ$V$#_RWU',

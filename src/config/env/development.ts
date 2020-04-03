@@ -8,7 +8,7 @@ const devConfig = {
   },
   port: process.env.PORT || 6064,
   database: {
-    url: `mongodb://localhost:27017/meed-dev`
+    url: `mongodb://localhost:27017/meedv2-dev`
   },
   session: {
     secret: 'Z6?x4Td8D&W8j5zAMQv2uxFZ$V$#_RWU',

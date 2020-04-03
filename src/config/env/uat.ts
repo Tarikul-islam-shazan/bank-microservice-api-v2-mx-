@@ -8,7 +8,7 @@ const uatConfig = {
   },
   port: process.env.PORT || 6064,
   database: {
-    url: `mongodb://${process.env.MONGODB_URI}/meed-uat`
+    url: `mongodb://${process.env.MONGODB_URI}/meedv2-uat`
   },
   session: {
     secret: 'Z6?x4Td8D&W8j5zAMQv2uxFZ$V$#_RWU',
