@@ -7,7 +7,7 @@ import { IPromotionService } from '../models/promotion-service/interface';
 
 export class PromotionController {
   private static getService(req: MeedRequest): IPromotionService {
-    const service = DIContainer.getNamed<IPromotionService>(TYPES.PromotionService, BankIdentifier.Axiomme);
+    const service = DIContainer.getNamed<IPromotionService>(TYPES.PromotionService, BankIdentifier.Invex);
     service.getAuthorizationService().setHeadersAndToken(req.headers, req.token);
     return service;
   }

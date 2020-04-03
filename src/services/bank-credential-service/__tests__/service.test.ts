@@ -55,7 +55,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-username`)
         .send({})
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -77,7 +77,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-username`)
         .send(MockForgotUsername)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockReponse.data.Message);
@@ -110,7 +110,7 @@ describe('Bank Credential Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/challenge-questions`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -136,7 +136,7 @@ describe('Bank Credential Service', () => {
           })}`
         )
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(MockChallengeQuestion);
@@ -169,7 +169,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/challenge-questions`)
         .send(NoUsername)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -190,7 +190,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/challenge-questions`)
         .send(NoAnswer)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -211,7 +211,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/challenge-questions`)
         .send(NoKey)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -231,7 +231,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/challenge-questions`)
         .send(MockValidateData)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(MockChallengeQuestion);
@@ -261,7 +261,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/reset`)
         .send(NoUsername)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -282,7 +282,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/reset`)
         .send(NoPassword)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -303,7 +303,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/reset`)
         .send(NoKey)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('code');
@@ -323,7 +323,7 @@ describe('Bank Credential Service', () => {
         .post(`${config.app.baseUrl}v1.0.0/credentials/forgot-password/reset`)
         .send(MockResetPass)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual('Mock Password reset successfully');

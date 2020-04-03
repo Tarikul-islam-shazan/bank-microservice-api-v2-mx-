@@ -14,7 +14,7 @@ export class AxPromotionService implements IPromotionService {
   private auth: IAuthorization;
   private repository = new PromotionRepository();
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     this.auth = injectedAuth;
   }
 

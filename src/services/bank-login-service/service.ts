@@ -20,14 +20,14 @@ import { IStaticData } from '../models/meedservice';
 export class AxBankLoginService implements IBankService {
   private auth: IAuthorization;
   @inject(TYPES.AxBankCredentials)
-  @named(BankIdentifier.Axiomme)
+  @named(BankIdentifier.Invex)
   private bankCredentialService: IBankCredentialService;
 
   @inject(TYPES.AxAccountService)
-  @named(BankIdentifier.Axiomme)
+  @named(BankIdentifier.Invex)
   private accountService: IAccountService;
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     this.auth = injectedAuth;
   }
 

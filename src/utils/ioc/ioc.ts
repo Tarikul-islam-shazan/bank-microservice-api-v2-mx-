@@ -58,93 +58,93 @@ DIContainer.bind<IOnboardingService>(TYPES.BankOnboarding)
 
 DIContainer.bind<IAuthorization>(TYPES.AxBankAuthorization)
   .to(AxiommeAuthorization)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IBankLoginService>(TYPES.AxBankLoginService)
   .to(AxBankLoginService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IBankCredentialService>(TYPES.AxBankCredentials)
   .to(BankCredentialService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IAccountService>(TYPES.AxAccountService)
   .to(AccountService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<ICustomerService>(TYPES.CustomerService)
   .to(AxCustomerService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<TransferService>(TYPES.AxTransferService)
   .to(AxxiomeTransferService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<ITransferStrategy>(TYPES.AxTransferStrategy)
   .to(ImmediateTransferStrategy)
-  .whenTargetTagged(BankIdentifier.Axiomme, TransferType.Immediate);
+  .whenTargetTagged(BankIdentifier.Invex, TransferType.Immediate);
 
 DIContainer.bind<ITransferStrategy>(TYPES.AxTransferStrategy)
   .to(ScheduledTransferStrategy)
-  .whenTargetTagged(BankIdentifier.Axiomme, TransferType.Scheduled);
+  .whenTargetTagged(BankIdentifier.Invex, TransferType.Scheduled);
 
 DIContainer.bind<ITransferStrategy>(TYPES.AxTransferStrategy)
   .to(RecurringTransferStrategy)
-  .whenTargetTagged(BankIdentifier.Axiomme, TransferType.Recurring);
+  .whenTargetTagged(BankIdentifier.Invex, TransferType.Recurring);
 
 DIContainer.bind<ICardService>(TYPES.AxBankCardService)
   .to(AxxiomeCardService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IDepositService>(TYPES.AxBankDepositService)
   .to(AxxiomeDepositService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IJumioService>(TYPES.JumioService)
   .to(JumioService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<P2PTransferService>(TYPES.P2PTransferService)
   .to(AxP2PTransferService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IP2PTransferStrategy>(TYPES.P2PTransferStrategy)
   .to(InternalP2PTransferStrategy)
-  .whenTargetTagged(BankIdentifier.Axiomme, P2PTransferType.INTERNAL);
+  .whenTargetTagged(BankIdentifier.Invex, P2PTransferType.INTERNAL);
 
 DIContainer.bind<IP2PTransferStrategy>(TYPES.P2PTransferStrategy)
   .to(ExternalP2PTransferStrategy)
-  .whenTargetTagged(BankIdentifier.Axiomme, P2PTransferType.EXTERNAL);
+  .whenTargetTagged(BankIdentifier.Invex, P2PTransferType.EXTERNAL);
 
 DIContainer.bind<ContactService>(TYPES.ContactService)
   .to(AxContactService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IFundRequestService>(TYPES.FundRequestService)
   .to(FundRequestService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 //#region BillPay
 DIContainer.bind<BillPayService>(TYPES.BillPayService)
   .to(AxBillPayService)
-  .whenTargetTagged(BankIdentifier.Axiomme, BillPayProvider.IPAY);
+  .whenTargetTagged(BankIdentifier.Invex, BillPayProvider.IPAY);
 
 DIContainer.bind<BillPayService>(TYPES.BillPayService)
   .to(AxBillPayService)
-  .whenTargetTagged(BankIdentifier.Axiomme, BillPayProvider.Q2);
+  .whenTargetTagged(BankIdentifier.Invex, BillPayProvider.Q2);
 
 DIContainer.bind<IBillPayStrategy>(TYPES.BillPayStrategy)
   .to(AxIpayStrategy)
-  .whenParentTagged(BankIdentifier.Axiomme, BillPayProvider.IPAY);
+  .whenParentTagged(BankIdentifier.Invex, BillPayProvider.IPAY);
 
 DIContainer.bind<IBillPayStrategy>(TYPES.BillPayStrategy)
   .to(AxQ2Strategy)
-  .whenParentTagged(BankIdentifier.Axiomme, BillPayProvider.Q2);
+  .whenParentTagged(BankIdentifier.Invex, BillPayProvider.Q2);
 //#endregion
 
 DIContainer.bind<IPromotionService>(TYPES.PromotionService)
   .to(AxPromotionService)
-  .whenTargetNamed(BankIdentifier.Axiomme);
+  .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IUrbanAirshipService>(TYPES.UrbanAirshipService).to(UrbanAirshipService);
 

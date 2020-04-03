@@ -39,10 +39,10 @@ export class InternalP2PTransferStrategy extends P2PTransferStrategy implements 
   private contactRepository = new ContactRepository();
 
   @inject(TYPES.FundRequestService)
-  @named(BankIdentifier.Axiomme)
+  @named(BankIdentifier.Invex)
   private fundRequestService: IFundRequestService;
 
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
 
@@ -122,7 +122,7 @@ export class InternalP2PTransferStrategy extends P2PTransferStrategy implements 
 @injectable()
 export class ExternalP2PTransferStrategy extends P2PTransferStrategy implements IP2PTransferStrategy {
   private transferRepository = new P2PTransferRepository();
-  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Axiomme) injectedAuth: IAuthorization) {
+  constructor(@inject(TYPES.AxBankAuthorization) @named(BankIdentifier.Invex) injectedAuth: IAuthorization) {
     super(injectedAuth);
   }
 

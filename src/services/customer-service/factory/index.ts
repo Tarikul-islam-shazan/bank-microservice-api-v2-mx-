@@ -8,7 +8,7 @@
 //   private static customerService = new AxxiomeCustomerService();
 
 //   public static getService(identifier: BankIdentifier): ICustomerService {
-//     if (identifier === BankIdentifier.Axiomme) {
+//     if (identifier === BankIdentifier.Invex) {
 //       return this.customerService;
 //     } else {
 //       return this.customerService;

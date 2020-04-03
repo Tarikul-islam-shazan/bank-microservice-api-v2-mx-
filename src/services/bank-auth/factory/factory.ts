@@ -6,7 +6,7 @@ export class ServiceFactory {
   private static axAuthService: AxiommeAuthorization;
 
   public static getService(req: MeedRequest): IAuthorization {
-    if (req.bankId === BankIdentifier.Axiomme) {
+    if (req.bankId === BankIdentifier.Invex) {
       if (!ServiceFactory.axAuthService) {
         ServiceFactory.axAuthService = new AxiommeAuthorization();
         return this.axAuthService;

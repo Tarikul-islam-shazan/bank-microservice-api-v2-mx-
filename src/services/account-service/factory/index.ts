@@ -6,7 +6,7 @@
 //   private static axService = new AccountService();
 
 //   public static getService(identifier: BankIdentifier): IAccountService {
-//     if (identifier === BankIdentifier.Axiomme) {
+//     if (identifier === BankIdentifier.Invex) {
 //       return this.axService;
 //     } else {
 //       return this.axService;

@@ -23,7 +23,7 @@
 //    * @memberof TransferServiceFactory
 //    */
 //   public static getTransferService(identifier: BankIdentifier): TransferService {
-//     if (identifier === BankIdentifier.Axiomme) {
+//     if (identifier === BankIdentifier.Invex) {
 //       return TransferServiceFactory.axTransferService;
 //     } else {
 //       this.axTransferService = new AxxiomeTransferService(null);
@@ -42,7 +42,7 @@
 //    */
 //   public static getStrategy(identifier: BankIdentifier, transferType: TransferType): ITransferStrategy {
 //     let strategy: ITransferStrategy;
-//     if (identifier === BankIdentifier.Axiomme) {
+//     if (identifier === BankIdentifier.Invex) {
 //       if (transferType === TransferType.Immediate) {
 //         strategy = new ImmediateTransferStrategy();
 //       } else if (transferType === TransferType.Scheduled) {

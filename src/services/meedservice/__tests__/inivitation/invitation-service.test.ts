@@ -57,7 +57,7 @@ describe('Invitation Service', () => {
             .post(`${config.app.baseUrl}v1.0.0/invitations`)
             .send([missingProp])
             .set('Content-Type', 'application/json')
-            .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+            .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
           expect(spyInivation).not.toBeCalled();
           expect(response.status).toBe(400);
@@ -93,7 +93,7 @@ describe('Invitation Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/invitations`)
           .send([mockSendInvite])
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
           .set('meedbankingclub-memberid', mockMember.id);
 
         expect(response.status).toBe(200);
@@ -110,7 +110,7 @@ describe('Invitation Service', () => {
           .post(`${config.app.baseUrl}v1.0.0/invitations`)
           .send([mockSendInvite])
           .set('Content-Type', 'application/json')
-          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+          .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
           .set('meedbankingclub-memberid', mockMember.id);
 
         expect(response.status).toBe(500);
@@ -148,7 +148,7 @@ describe('Invitation Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/invitations`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme);
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex);
 
       expect(response.status).toBe(400);
       expect(spyInivation).not.toBeCalled();
@@ -162,7 +162,7 @@ describe('Invitation Service', () => {
       const response = await request(app)
         .get(`${config.app.baseUrl}v1.0.0/invitations?memberId=${mockMember.id}`)
         .set('Content-Type', 'application/json')
-        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Axiomme)
+        .set('MeedBankingClub-Bank-Identifier', BankIdentifier.Invex)
         .set('meedbankingclub-memberid', mockMember.id);
 
       expect(response.status).toBe(200);
