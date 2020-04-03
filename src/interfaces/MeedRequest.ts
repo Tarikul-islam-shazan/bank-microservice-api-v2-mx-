@@ -7,5 +7,5 @@ export interface MeedRequest extends Request {
 }
 
 export enum BankIdentifier {
-  Axiomme = 'axiomme'
+  Invex = 'invex'
 }

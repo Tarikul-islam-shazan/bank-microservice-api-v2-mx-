@@ -5,17 +5,11 @@ import {
   IdentityAnswers,
   RegistrationFeeRequest,
   IScannedIdData,
-  USMemberInfo,
+  MxMemberInfo,
   RegistrationFeePaymentType
 } from '../../../models/bank-onboarding/interface';
 import HttpStatus from 'http-status-codes';
-import {
-  signUpRequestTemplate,
-  ScannedIdDataTemplate,
-  JumioWebHookRequestTemplate,
-  identityAnswer,
-  productOnboarding
-} from './templates';
+import { signUpRequestTemplate, ScannedIdDataTemplate, identityAnswer, productOnboarding } from './templates';
 
 export class RequestMapper {
   static createLogin(requestBody: Credential) {
@@ -30,15 +24,6 @@ export class RequestMapper {
     }
   }
 
-  static jumioWebHookRequest(username: string) {
-    try {
-      const requestBody = jsonTransformer(JumioWebHookRequestTemplate).evaluate({ username });
-      return requestBody;
-    } catch (error) {
-      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
-    }
-  }
-
   /**
    * Take member application data, scanned Id data and convert it to a Axxiome request body
    *
@@ -47,7 +32,7 @@ export class RequestMapper {
    * @param {IScannedIdData} scannedIdData
    * @memberof RequestMapper
    */
-  static applyForAccount(memberInfo: USMemberInfo, scannedIdData: IScannedIdData) {
+  static applyForAccount(memberInfo: MxMemberInfo, scannedIdData: IScannedIdData) {
     try {
       const requestBody = jsonTransformer(signUpRequestTemplate).evaluate(memberInfo);
       requestBody.Data.KYC = jsonTransformer(ScannedIdDataTemplate).evaluate(scannedIdData);

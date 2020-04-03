@@ -17,7 +17,7 @@ import { AxiommeAuthorization } from './../../services/bank-auth/factory/ax-auth
 import { IAuthorization } from './../../services/bank-auth/models/interface';
 import { BankIdentifier } from '../../interfaces/MeedRequest';
 import { IOnboardingService } from '../../services/models/bank-onboarding/interface';
-import { AxxiomeOnboardingService } from './../../services/bank-onboarding/ax-service';
+import { IvxOnboardingService } from './../../services/bank-onboarding/ax-service';
 
 import { TYPES } from './types';
 import { AxBankLoginService } from '../../services/bank-login-service/service';
@@ -52,8 +52,8 @@ import { UrbanAirshipService } from '../../services/urban-airship-service/servic
 const DIContainer = new Container();
 
 // Axiomme Mappings
-DIContainer.bind<IOnboardingService>(TYPES.AxBankOnboarding)
-  .to(AxxiomeOnboardingService)
+DIContainer.bind<IOnboardingService>(TYPES.BankOnboarding)
+  .to(IvxOnboardingService)
   .whenTargetNamed(BankIdentifier.Invex);
 
 DIContainer.bind<IAuthorization>(TYPES.AxBankAuthorization)

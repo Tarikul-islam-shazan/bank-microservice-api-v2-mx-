@@ -120,39 +120,97 @@ export interface IScannedIdData {
 }
 
 export interface BankApplication {
-  memberApplication: IMemberApplication;
-  scannedIdData: IScannedIdData;
+  application: IMemberApplication;
 }
 
-export interface USMemberInfo extends IMemberApplication {
-  email: string;
-  prefix: string;
+export enum AccountSelection {
+  Full = 'Full',
+  Express = 'Express'
+}
+
+export interface MxMemberInfo extends IMemberApplication {
+  generalInfo: IGeneralInfo;
+  addressInfo: IAddressInfo;
+  beneficiaryInfo: IBeneficiaryInfo;
+  accountSelection: AccountSelection;
+  personalInfo?: IPersonalInfo;
+  moreInfo?: IMoreInfo;
+}
+
+export interface ICommonInfo {
   firstName: string;
-  middleName: string;
-  lastName: string;
+  secondName?: string;
   dateOfBirth: string;
-  addressLine1: string;
-  addressLine2: string;
-  city: string;
-  mobilePhone: string;
-  workPhone: string;
-  zipCode: string;
+  paternalLastName: string;
+  maternalLastName?: string;
+}
+
+export interface IGeneralInfo extends ICommonInfo {
+  curp: string;
+  mobileNumber: string;
+}
+
+export interface IBeneficiaryInfo extends ICommonInfo {
+  selfFundSource: boolean;
+  fundSourceInfo: ICommonInfo;
+}
+
+export interface IAddressInfo {
+  addressType: string;
+  propertyType: string;
+  street: string;
+  outdoorNumber: string;
+  interiorNumber: string;
+  postCode: string;
   state: string;
-  identityType: IdentityType;
-  identityNumber: string;
-  socialSecurityNo: string;
-  country: string;
-  occupation: Occupations;
-  isRelatedToArmedForces: ArmedForceRelation;
-  armedForcesMemberFirstName: string;
-  armedForcesMemberLastName: string;
-  armedForcesSocialSecurityPin: string;
-  armedForcesDob: string;
-  sourceOfIncome: SourceOfIncomes;
-  monthlyWithdrawal: MonthlyTransactionRange;
-  monthlyDeposit: MonthlyTransactionRange;
-  monthlyIncome: string;
-  workPhoneExtension: string;
+  municipality: string;
+  city: string;
+  suburb: string;
+  timeAtResidence: string;
+}
+
+export interface IPersonalInfo {
+  countryOfBirth: string;
+  nationality: string;
+  placeOfBirth: string;
+  sex: Sex;
+  maritalStatus: MaritalStatus;
+  hightLevelOfEducation: string;
+  profession: string;
+  occupation: string;
+  economicActivity: string;
+  banxicoActivity: string;
+}
+
+export enum Sex {
+  Male = 'Male',
+  Female = 'Female',
+  Other = 'Other'
+}
+
+export enum MaritalStatus {
+  Single = 'Single',
+  Married = 'Married',
+  Divorced = 'Divorced'
+}
+
+export interface IMoreInfo {
+  holdGovPosition: boolean;
+  positionInfo?: IGovPositionInfo;
+  relativeHoldGovPosition?: boolean;
+  relativeInfo?: IRelativeInfo;
+}
+
+export interface IGovPositionInfo {
+  position: string;
+  association: string;
+}
+
+export interface IRelativeInfo extends Omit<ICommonInfo, 'dateOfBirth'> {
+  position: string;
+  homeAddress: string;
+  phone: string;
+  participationPersent: number;
 }
 
 export enum ArmedForceRelation {

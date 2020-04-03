@@ -1,17 +1,15 @@
 import { IOnboardingService } from '../../models/bank-onboarding/interface';
-import { AxxiomeOnboardingService } from '../ax-service';
-import { ServiceFactory as BankAuthFactory } from '../../bank-auth/factory/factory';
-import { IAuthorization } from '../../bank-auth/models/interface';
-import { BankIdentifier, MeedRequest } from '../../../interfaces/MeedRequest';
+import { BankIdentifier } from '../../../interfaces/MeedRequest';
+import { IvxOnboardingService } from '../ax-service';
 
 export class ServiceFactory {
-  private static axOnboardingService = new AxxiomeOnboardingService(null);
+  private static ivxOnboardingService = new IvxOnboardingService(null);
 
   public static getService(identifier: BankIdentifier): IOnboardingService {
     if (identifier === BankIdentifier.Invex) {
-      return this.axOnboardingService;
+      return this.ivxOnboardingService;
     } else {
-      return this.axOnboardingService;
+      return this.ivxOnboardingService;
     }
   }
 }
