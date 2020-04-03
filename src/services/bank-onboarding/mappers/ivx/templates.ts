@@ -157,3 +157,7 @@ export const productOnboarding = `{
     }
   }
 }`;
+
+export const addressInfoTemplate = `{
+  
+}`;
