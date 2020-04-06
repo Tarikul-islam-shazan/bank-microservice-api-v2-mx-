@@ -1,12 +1,6 @@
 import Joi from '@hapi/joi';
 import moment from 'moment';
-import {
-  IdentityType,
-  ArmedForceRelation,
-  AccountSelection,
-  Sex,
-  MaritalStatus
-} from '../../models/bank-onboarding/interface';
+import { AccountSelection, Sex, MaritalStatus } from '../../models/bank-onboarding/interface';
 
 const validateDate = value => {
   if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
@@ -36,6 +30,11 @@ const CommonInfo = Joi.object({
   dateOfBirth: Joi.string().required(),
   paternalLastName: Joi.string().required(),
   maternalLastName: Joi.string().optional()
+});
+
+export const GeneralInfo = CommonInfo.append({
+  curp: Joi.string().required(),
+  mobileNumber: Joi.string().required()
 });
 
 export const ApplyForAccount = Joi.object({

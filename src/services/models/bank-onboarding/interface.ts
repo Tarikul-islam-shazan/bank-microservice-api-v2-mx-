@@ -14,7 +14,7 @@ export interface IOnboardingService extends IBankService {
     processId?: string,
     corporateTncAccepted?: boolean | undefined
   ): Promise<ProductOnboardedResponse>;
-  applyForAccount(memberId: string, application: BankApplication): Promise<IMember | IdentityQuestions>;
+  generalInformation(memberId: string, generalInfo: IGeneralInfo): Promise<IMember>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
 }
 
