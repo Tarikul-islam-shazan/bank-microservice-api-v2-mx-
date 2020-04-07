@@ -8,7 +8,7 @@ const qaConfig = {
   },
   port: process.env.PORT || 6064,
   database: {
-    url: `mongodb://meedservices:A8An9LvbXQJuBFB83u@10.1.0.104:27017,10.1.0.148:27017,10.1.0.189:27017/meedv2?replicaSet=s0&authSource=admin`
+    url: `mongodb://meedservices:A8An9LvbXQJuBFB83u@10.1.0.104:27017,10.1.0.148:27017,10.1.0.189:27017/meedv2-qa?replicaSet=s0&authSource=admin`
   },
   session: {
     secret: 'Z6?x4Td8D&W8j5zAMQv2uxFZ$V$#_RWU',

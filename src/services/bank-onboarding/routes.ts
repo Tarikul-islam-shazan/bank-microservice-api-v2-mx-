@@ -3,10 +3,10 @@ import { asyncWrapper } from '../../middleware/asyncWrapper';
 import {
   MemberIdRequired,
   CreateLogin,
-  ApplyForAccount,
   AcceptTermsAndCondition,
   IdentityQuestionAnswers,
   RegistrationFee,
+  GeneralInfo,
   BeneficiaryInfo
 } from './validators';
 import { OnboardingController } from './controller';
@@ -23,12 +23,12 @@ export default [
     ]
   },
   {
-    path: 'v1.0.0/bank/onboarding/apply',
+    path: 'v1.0.0/bank/onboarding/apply/general-info',
     method: 'post',
     handler: [
       handleValidation(MemberIdRequired, ValidationLevel.Headers),
-      handleValidation(ApplyForAccount),
-      asyncWrapper(OnboardingController.applyForAccount)
+      handleValidation(GeneralInfo),
+      asyncWrapper(OnboardingController.generalInformation)
     ]
   },
   {

@@ -11,11 +11,11 @@ import {
   MxMemberInfo,
   IScannedIdData,
   TncResponse,
+  IGeneralInfo,
   IBeneficiaryInfo
 } from '../models/bank-onboarding/interface';
-import { IMember, MemberType, AccountStatus } from '../models/meedservice/member';
+import { IMember, AccountStatus } from '../models/meedservice/member';
 import { HTTPError } from '../../utils/httpErrors';
-import { OnboardingErrMapper } from './errors';
 import { AxErrorMapper } from '../../utils/error-mapper/axError';
 import { RequestMapper, ResponseMapper } from './mappers/';
 import { MeedAxios } from '../../utils/api';
@@ -72,18 +72,17 @@ export class IvxOnboardingService implements IOnboardingService {
    * @memberof IvxOnboardingService
    * @version v1.0.0
    */
-  async applyForAccount(memberId: string, application: BankApplication): Promise<IMember> {
-    // before apply for account there will be a call to axxiome from jumio web hook
-    // const memberInfo = application.memberApplication as MxMemberInfo;
-    // const scannedIdData = application.scannedIdData as IScannedIdData;
+  async generalInformation(memberId: string, generalInfo: IGeneralInfo): Promise<IMember> {
+    // TODO: Hove to call invex bank api with generalInfo
+    // Now returning demo data for now
 
     const member = await MeedService.updateMember({
       id: memberId,
-      applicationProgress: ApplicationProgress.BankApplicationSubmitted
+      applicationProgress: ApplicationProgress.GeneralInfoCompleted
       // applicationStatus: ApplicationStatus.Denied
     });
 
-    return member;
+    return { ...member, generalInfo } as any;
   }
 
   async beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember> {
