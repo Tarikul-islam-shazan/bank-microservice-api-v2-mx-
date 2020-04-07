@@ -41,6 +41,15 @@ export default [
     ]
   },
   {
+    path: 'v1.0.0/bank/onboarding/apply/address-info',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(SignupAddressInfo),
+      asyncWrapper(OnboardingController.addressInfo)
+    ]
+  },
+  {
     path: 'v1.0.0/bank/onboarding/identity-questions',
     method: 'get',
     handler: [
