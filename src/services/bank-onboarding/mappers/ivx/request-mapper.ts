@@ -6,10 +6,17 @@ import {
   RegistrationFeeRequest,
   IScannedIdData,
   MxMemberInfo,
-  RegistrationFeePaymentType
+  RegistrationFeePaymentType,
+  IAddressInfo
 } from '../../../models/bank-onboarding/interface';
 import HttpStatus from 'http-status-codes';
-import { signUpRequestTemplate, ScannedIdDataTemplate, identityAnswer, productOnboarding } from './templates';
+import {
+  signUpRequestTemplate,
+  ScannedIdDataTemplate,
+  identityAnswer,
+  productOnboarding,
+  addressInfoTemplate
+} from './templates';
 
 export class RequestMapper {
   static createLogin(requestBody: Credential) {
@@ -111,6 +118,14 @@ export class RequestMapper {
         }
       }`;
       return jsonTransformer(template).evaluate(requestBody);
+    } catch (error) {
+      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  static addressInfo(requestBody: IAddressInfo) {
+    try {
+      return jsonTransformer(addressInfoTemplate).evaluate(requestBody);
     } catch (error) {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }

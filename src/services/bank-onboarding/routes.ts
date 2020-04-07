@@ -6,7 +6,8 @@ import {
   AcceptTermsAndCondition,
   IdentityQuestionAnswers,
   RegistrationFee,
-  GeneralInfo
+  GeneralInfo,
+  SignupAddressInfo
 } from './validators';
 import { OnboardingController } from './controller';
 import AuthMiddleware from '../../middleware/authMiddleware';
@@ -28,6 +29,24 @@ export default [
       handleValidation(MemberIdRequired, ValidationLevel.Headers),
       handleValidation(GeneralInfo),
       asyncWrapper(OnboardingController.generalInformation)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/address-info',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(SignupAddressInfo),
+      asyncWrapper(OnboardingController.addressInfo)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/address-info',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(SignupAddressInfo),
+      asyncWrapper(OnboardingController.addressInfo)
     ]
   },
   {

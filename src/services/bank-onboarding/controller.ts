@@ -173,4 +173,10 @@ export class OnboardingController {
     const response = await OnboardingController.createServiceAndSetAuth(req).fundAccount(memberId, req.body);
     res.status(200).json(response);
   }
+
+  public static async addressInfo(req: MeedRequest, res: Response): Promise<void> {
+    const memberId = req.headers['meedbankingclub-memberid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).addressInfo(memberId, req.body);
+    res.status(200).json(response);
+  }
 }
