@@ -64,7 +64,7 @@ export class OnboardingController {
    * @memberof OnboardingController
    * @version v1.0.0
    */
-  public static async beneficiaryInformation(req: Request, res: Response): Promise<void> {
+  public static async beneficiaryInformation(req: MeedRequest, res: Response): Promise<void> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).beneficiaryInformation(memberId, req.body);
     res.status(200).json(response);
@@ -193,6 +193,32 @@ export class OnboardingController {
   public static async addressInfo(req: MeedRequest, res: Response): Promise<void> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).addressInfo(memberId, req.body);
+    res.status(200).json(response);
+  }
+
+  public static async selectAccountLevel(req: MeedRequest, res: Response): Promise<any> {
+    const memberId = req.headers['meedbankingclub-memberid'] as string;
+    const { accountLevel } = req.body;
+    const response = await OnboardingController.createServiceAndSetAuth(req).selectAccountLevel(memberId, accountLevel);
+
+    res.status(200).json(response);
+  }
+
+  public static async personalInformation(req: MeedRequest, res: Response): Promise<void> {
+    const memberId = req.headers['meedbankingclub-memberid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).personalInformation(memberId, req.body);
+    res.status(200).json(response);
+  }
+
+  public static async govDisclosureInfo(req: MeedRequest, res: Response): Promise<void> {
+    const memberId = req.headers['meedbankingclub-memberid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).govDisclosureInfo(memberId, req.body);
+    res.status(200).json(response);
+  }
+
+  public static async fundProvider(req: MeedRequest, res: Response): Promise<any> {
+    const memberId = req.headers['meedbankingclub-memberid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).fundProvider(memberId, req.body);
     res.status(200).json(response);
   }
 }

@@ -14,11 +14,14 @@ export interface IOnboardingService extends IBankService {
     processId?: string,
     corporateTncAccepted?: boolean | undefined
   ): Promise<ProductOnboardedResponse>;
-  applyForAccount(memberId: string, application: BankApplication): Promise<IMember | IdentityQuestions>;
   generalInformation(memberId: string, generalInfo: IGeneralInfo): Promise<IMember>;
   beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
   addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember>;
+  selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember>;
+  personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
+  govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
+  fundProvider(memberId: string, funding: IFundProvider): Promise<IMember>;
 }
 
 export interface Credential {
@@ -137,7 +140,6 @@ export interface MxMemberInfo extends IMemberApplication {
   beneficiaryInfo: IBeneficiaryInfo;
   accountSelection: AccountSelection;
   personalInfo?: IPersonalInfo;
-  moreInfo?: IMoreInfo;
 }
 
 export interface ICommonInfo {
@@ -182,6 +184,11 @@ export interface IPersonalInfo {
   banxicoActivity: string;
 }
 
+export interface IFundProvider {
+  fundMyself: boolean;
+  providerInfo?: ICommonInfo;
+}
+
 export enum Sex {
   Male = 'Male',
   Female = 'Female',
@@ -194,7 +201,7 @@ export enum MaritalStatus {
   Divorced = 'Divorced'
 }
 
-export interface IMoreInfo {
+export interface IGovDisclosure {
   holdGovPosition: boolean;
   positionInfo?: IGovPositionInfo;
   relativeHoldGovPosition?: boolean;

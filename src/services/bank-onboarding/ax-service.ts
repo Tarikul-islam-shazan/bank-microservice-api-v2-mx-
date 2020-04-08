@@ -13,7 +13,11 @@ import {
   TncResponse,
   IGeneralInfo,
   IAddressInfo,
-  IBeneficiaryInfo
+  IBeneficiaryInfo,
+  IGovDisclosure,
+  IFundProvider,
+  AccountSelection,
+  IPersonalInfo
 } from '../models/bank-onboarding/interface';
 import { IMember, AccountStatus } from '../models/meedservice/member';
 import { HTTPError } from '../../utils/httpErrors';
@@ -373,6 +377,79 @@ export class IvxOnboardingService implements IOnboardingService {
     const member = await MeedService.updateMember({
       id: memberId,
       applicationProgress: ApplicationProgress.AddressInfoCompleted
+    });
+
+    return member;
+  }
+
+  /**
+   * TODO: complete using invex bank api's
+   *
+   * @param {string} memberId
+   * @param {AccountSelection} accountLevel
+   * @returns {Promise<IMember>}
+   * @memberof IvxOnboardingService
+   */
+  async selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember> {
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.AccountLevelSelected
+    });
+
+    return member;
+  }
+
+  /**
+   * TODO: complete using invex bank api's
+   *
+   * @param {string} memberId
+   * @param {IPersonalInfo} personalInfo
+   * @returns {Promise<IMember>}
+   * @memberof IvxOnboardingService
+   */
+  async personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember> {
+    // TODO: Have to update with invex api
+    // This is just for demo
+
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.PersonalInfoCompleted
+      // applicationStatus: ApplicationStatus.Denied
+    });
+
+    return { ...member, personalInfo } as any;
+  }
+
+  /**
+   * TODO: complete using invex bank api's
+   *
+   * @param {string} memberId
+   * @param {IGovDisclosure} govDisclosure
+   * @returns {Promise<IMember>}
+   * @memberof IvxOnboardingService
+   */
+  async govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember> {
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.GovDisclosureCompleted
+      // applicationStatus: ApplicationStatus.Denied
+    });
+
+    return { ...member, govDisclosure } as any;
+  }
+
+  /**
+   * TODO: complete using invex bank api's
+   *
+   * @param {string} memberId
+   * @param {IFundProvider} funding
+   * @returns {Promise<IMember>}
+   * @memberof IvxOnboardingService
+   */
+  async fundProvider(memberId: string, funding: IFundProvider): Promise<IMember> {
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.FundSourceInfoCompleted
     });
 
     return member;
