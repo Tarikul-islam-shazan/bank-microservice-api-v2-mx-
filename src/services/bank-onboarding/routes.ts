@@ -8,7 +8,11 @@ import {
   RegistrationFee,
   GeneralInfo,
   SignupAddressInfo,
-  BeneficiaryInfo
+  BeneficiaryInfo,
+  SignupAccountLevel,
+  PersonalInfo,
+  GovDisclosure,
+  FundProvider
 } from './validators';
 import { OnboardingController } from './controller';
 import AuthMiddleware from '../../middleware/authMiddleware';
@@ -48,6 +52,42 @@ export default [
       handleValidation(MemberIdRequired, ValidationLevel.Headers),
       handleValidation(BeneficiaryInfo),
       asyncWrapper(OnboardingController.beneficiaryInformation)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/account-level',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(SignupAccountLevel),
+      asyncWrapper(OnboardingController.selectAccountLevel)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/personal-info',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(PersonalInfo),
+      asyncWrapper(OnboardingController.personalInformation)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/gov-disclosure',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(GovDisclosure),
+      asyncWrapper(OnboardingController.govDisclosureInfo)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/fund-provider',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(FundProvider),
+      asyncWrapper(OnboardingController.fundProvider)
     ]
   },
   {

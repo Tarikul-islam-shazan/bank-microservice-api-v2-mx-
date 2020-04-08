@@ -122,6 +122,59 @@ export const SignupAddressInfo = Joi.object({
 
 export const BeneficiaryInfo = CommonInfo;
 
+export const SignupAccountLevel = Joi.object({
+  accountLevel: Joi.string()
+    .valid(...Object.values(AccountSelection))
+    .required()
+});
+
+export const PersonalInfo = Joi.object({
+  countryOfBirth: Joi.string().required(),
+  placeOfBirth: Joi.string().required(),
+  nationality: Joi.string().required(),
+  sex: Joi.string()
+    .valid(...Object.values(Sex))
+    .required(),
+  maritalStatus: Joi.string()
+    .valid(...Object.values(MaritalStatus))
+    .required(),
+  hightLevelOfEducation: Joi.string().required(),
+  occupation: Joi.string().required(),
+  profession: Joi.string().required(),
+  economicActivity: Joi.string().required(),
+  banxicoActivity: Joi.string().required()
+});
+
+export const GovDisclosure = Joi.object({
+  holdGovPosition: Joi.boolean()
+    .strict()
+    .required(),
+  positionInfo: Joi.object({
+    position: Joi.string().required(),
+    association: Joi.string().required()
+  }).when('holdGovPosition', { is: true, then: Joi.required() }),
+  relativeHoldGovPosition: Joi.boolean()
+    .strict()
+    .when('holdGovPosition', { is: true, then: Joi.required() }),
+  relativeInfo: Joi.object({
+    firstName: Joi.string().required(),
+    secondName: Joi.string().optional(),
+    paternalLastName: Joi.string().required(),
+    maternalLastName: Joi.string().optional(),
+    position: Joi.string().required(),
+    homeAddress: Joi.string().required(),
+    phone: Joi.string().required(),
+    participation: Joi.number().required()
+  }).when('relativeHoldGovPosition', { is: true, then: Joi.required() })
+});
+
+export const FundProvider = Joi.object({
+  fundMyself: Joi.boolean()
+    .strict()
+    .required(),
+  providerInfo: CommonInfo.when('fundMyself', { is: false, then: Joi.required() })
+});
+
 export const AcceptTermsAndCondition = Joi.object({
   isTermsAccepted: Joi.boolean().required(),
   processId: Joi.string().required(),
