@@ -10,6 +10,7 @@ import MeedUtils from './utils';
  * @class MeedAxios
  */
 export class MeedAxios {
+  private static invexAxios: AxiosInstance;
   private static axios: AxiosInstance;
   private static urbarAirshipAxios: any;
   private static affinityAxios: any;
@@ -93,6 +94,27 @@ export class MeedAxios {
     }
 
     return MeedAxios.axios;
+  }
+
+  public static getInvexInstance(): any {
+    if (!MeedAxios.invexAxios) {
+      MeedAxios.invexAxios = axiosLib.create({
+        baseURL: config.api.invex.url,
+        headers: {
+          Accept: '*/*',
+          'Accept-Language': 'en-US'
+        },
+        // TODO: Should be remove. Currently this bypass the SSL Verification
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false
+        })
+      });
+
+      // Logging API request and Response or Error if occered
+      MeedAxios.invexAxios.interceptors.response.use(MeedAxios.logResponse, MeedAxios.logError);
+    }
+
+    return MeedAxios.invexAxios;
   }
 
   public static getBriteVerifyInstance(): AxiosInstance {

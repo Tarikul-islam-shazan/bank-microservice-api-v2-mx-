@@ -23,6 +23,7 @@ import { ErrorMapper } from '../../utils/error-mapper/errorMapper';
 import { MeedAxios } from '../../utils/api';
 import config from '../../config/config';
 import { OnboardingErrorCode } from './errors/onboarding';
+import { CounterService } from './atomic-services/counter';
 
 /**
  * Holds all the functions which can be called as part of the mobile api, and which require
@@ -374,5 +375,12 @@ export class MeedService {
 
   static async addTransitions(transitions: ITransition[]): Promise<void> {
     await TransitionService.createManyOrIgnore(transitions);
+  }
+
+  static async generateCustomerId(): Promise<string> {
+    const counter = await CounterService.getCounter('customerId');
+    // TODO: need to check if any condition or padding length required
+    const customerId = counter.toString().padStart(11, '0');
+    return customerId;
   }
 }
