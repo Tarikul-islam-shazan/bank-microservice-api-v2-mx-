@@ -7,9 +7,13 @@ import {
   ProductOnboardedResponse,
   RegistrationFeeRequest,
   FundAccountResponse,
+  BankApplication,
+  MxMemberInfo,
+  IScannedIdData,
   TncResponse,
   IGeneralInfo,
-  IAddressInfo
+  IAddressInfo,
+  IBeneficiaryInfo
 } from '../models/bank-onboarding/interface';
 import { IMember, AccountStatus } from '../models/meedservice/member';
 import { HTTPError } from '../../utils/httpErrors';
@@ -81,6 +85,17 @@ export class IvxOnboardingService implements IOnboardingService {
 
     return { ...member, generalInfo } as any;
   }
+
+  async beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember> {
+    const member = await MeedService.updateMember({
+      id: memberId,
+      applicationProgress: ApplicationProgress.BeneficiaryInfoCompleted
+      // applicationStatus: ApplicationStatus.Denied
+    });
+
+    return { ...member, beneficiaryInfo } as any;
+  }
+
   //#endregion
 
   //#region start product onboarding

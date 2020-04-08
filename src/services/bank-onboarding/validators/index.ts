@@ -120,6 +120,8 @@ export const SignupAddressInfo = Joi.object({
   timeAtResidence: Joi.string().required()
 });
 
+export const BeneficiaryInfo = CommonInfo;
+
 export const AcceptTermsAndCondition = Joi.object({
   isTermsAccepted: Joi.boolean().required(),
   processId: Joi.string().required(),
