@@ -7,6 +7,7 @@ import {
   IdentityQuestionAnswers,
   RegistrationFee,
   GeneralInfo,
+  SignupAddressInfo,
   BeneficiaryInfo
 } from './validators';
 import { OnboardingController } from './controller';
@@ -29,6 +30,15 @@ export default [
       handleValidation(MemberIdRequired, ValidationLevel.Headers),
       handleValidation(GeneralInfo),
       asyncWrapper(OnboardingController.generalInformation)
+    ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/apply/address-info',
+    method: 'post',
+    handler: [
+      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(SignupAddressInfo),
+      asyncWrapper(OnboardingController.addressInfo)
     ]
   },
   {
