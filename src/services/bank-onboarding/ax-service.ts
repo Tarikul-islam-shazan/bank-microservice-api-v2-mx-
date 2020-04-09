@@ -35,7 +35,7 @@ import { IUrbanAirshipService } from '../models/urban-airship/interface';
 import httpContext from 'express-http-context';
 import uuidv4 from 'uuid/v4';
 import { AccountType } from '../models/account-service/interface';
-import { OnboardingErrMapper } from './errors';
+import { IvxOnboardErrMapper } from './errors/ivx-onboard-errors';
 
 @injectable()
 export class IvxOnboardingService implements IOnboardingService {
@@ -64,22 +64,13 @@ export class IvxOnboardingService implements IOnboardingService {
     const customerId = await MeedService.generateCustomerId();
     // const headers = await this.auth.getBankHeaders(); // without auth its working!
     const apiBody = RequestMapper.createLogin(customerId, credential);
-    try {
-      const response = await MeedAxios.getInvexInstance().post(``, { ...apiBody });
+    const response = await MeedAxios.getInvexInstance().post(``, { ...apiBody });
 
-      // TODO: After getting proper doc Need to decide how we are gonna handle errors,
-      // ALSO need to check 'respcode' to check success
-      if (response.data?.codRet !== '000' || response.data?.busqueda[0]?.respcode !== '000') {
-        const msg = response.data?.busqueda[0]?.resptext || response.data?.msgRet || 'Unknown error';
-        throw new HTTPError(msg, '5000', 500);
-      }
+    // we are expecting always 200 code, so we no longer need try catch
+    // axios error / http error will be handled by async wrapper
+    IvxOnboardErrMapper.createLogin(response.data);
 
-      return customerId;
-    } catch (error) {
-      //TODO: need to update for invex
-      const { errorCode, httpCode, message } = OnboardingErrMapper.mapCreateLoginError(error);
-      throw new HTTPError(message, errorCode, httpCode);
-    }
+    return customerId;
   }
 
   //#region apply for account
