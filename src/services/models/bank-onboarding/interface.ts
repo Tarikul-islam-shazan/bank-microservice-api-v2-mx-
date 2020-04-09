@@ -3,7 +3,7 @@ import { IBankService } from '../shared/interface';
 import { IAccount } from '../account-service/interface';
 
 export interface IOnboardingService extends IBankService {
-  createLogin(username: string, credential: Credential): void;
+  createLogin(credential: Credential): Promise<string>;
   getIdentityQuestions(): Promise<IdentityQuestions>;
   setIdentityQuestionsAnswers(answers: IdentityAnswers): any;
   getTermsAndConditions(memberId: string): Promise<TncResponse>;

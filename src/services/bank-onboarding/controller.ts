@@ -20,19 +20,23 @@ export class OnboardingController {
   public static async createLogin(req: MeedRequest, res: Response): Promise<any> {
     const { username } = req.body;
     const memberId = req.headers['meedbankingclub-memberid'] as string;
+
     // TODO: Perhaps we can search by id and do the comparison here, that way we can reduce the number
     // of functions on MeedService for searching for a member.
     const existingMember = await MeedService.findMemberByUsername(username);
+
     if (existingMember) {
       // TODO: how we can set error code here ? how we can differentiate between multiple bank
       const { message, errorCode, httpCode } = ErrorCodes.createLogin.USER_NAME_ALREADY_EXISTS;
       throw new HTTPError(message, errorCode, httpCode);
     }
+
     // TODO: What happens if one of these failes how do we ensure both succeed or both fail.
-    await OnboardingController.createServiceAndSetAuth(req).createLogin(username, req.body as Credential);
+    const customerId = await OnboardingController.createServiceAndSetAuth(req).createLogin(req.body as Credential);
     const member = await MeedService.updateMember({
       id: memberId,
       username,
+      customerId,
       applicationProgress: ApplicationProgress.CredentialsCreated
     });
     res.status(200).json(member);

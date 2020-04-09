@@ -19,11 +19,24 @@ import {
 } from './templates';
 
 export class RequestMapper {
-  static createLogin(requestBody: Credential) {
+  static createLogin(customerId: string, requestBody: Credential) {
     try {
       const template = `{
-        "Password": password,
-        "Emailaddress": email
+        "metodoNombre": "MTD129",
+        "metodopEntrada": [
+          {
+            "llave": "string",
+            "valor": "${customerId}"
+          },
+          {
+            "llave": "string",
+            "valor": username
+          },
+          {
+            "llave": "string",
+            "valor": password
+          }
+        ]
       }`;
       return jsonTransformer(template).evaluate(requestBody);
     } catch (error) {

@@ -35,6 +35,7 @@ import { IUrbanAirshipService } from '../models/urban-airship/interface';
 import httpContext from 'express-http-context';
 import uuidv4 from 'uuid/v4';
 import { AccountType } from '../models/account-service/interface';
+import { IvxOnboardErrMapper } from './errors/ivx-onboard-errors';
 
 @injectable()
 export class IvxOnboardingService implements IOnboardingService {
@@ -59,10 +60,17 @@ export class IvxOnboardingService implements IOnboardingService {
     return this.auth;
   }
 
-  async createLogin(username: string, credential: Credential): Promise<void> {
-    const headers = await this.auth.getBankHeaders();
-    const apiBody = RequestMapper.createLogin(credential);
-    // TODO: need to update for mexico invex bank
+  async createLogin(credential: Credential): Promise<string> {
+    const customerId = await MeedService.generateCustomerId();
+    // const headers = await this.auth.getBankHeaders(); // without auth its working!
+    const apiBody = RequestMapper.createLogin(customerId, credential);
+    const response = await MeedAxios.getInvexInstance().post(``, { ...apiBody });
+
+    // we are expecting always 200 code, so we no longer need try catch
+    // axios error / http error will be handled by async wrapper
+    IvxOnboardErrMapper.createLogin(response.data);
+
+    return customerId;
   }
 
   //#region apply for account
