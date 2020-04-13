@@ -133,5 +133,10 @@ export default [
       handleValidation(RegistrationFee),
       asyncWrapper(OnboardingController.fundAccount)
     ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/:postCode/state-city-municipality',
+    method: 'get',
+    handler: [asyncWrapper(OnboardingController.getStateCityMunicipality)]
   }
 ];

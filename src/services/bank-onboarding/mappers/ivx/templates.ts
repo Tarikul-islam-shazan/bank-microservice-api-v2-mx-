@@ -159,5 +159,26 @@ export const productOnboarding = `{
 }`;
 
 export const addressInfoTemplate = `{
-  
+
 }`;
+
+export const stateCityMunicipality = `{
+  "metodoNombre": "MTD122",
+  "metodopEntrada": [
+    {
+      "llave" : "string",
+      "valor": postCode
+    }
+  ]
+}`;
+
+export const stateCitymunicipalityResponseTemplate = `[$.{
+  "stateName": estadonombre,
+  "state": cve_entfed,
+  "municipalityName": municipionombre,
+  "municipality": cve_municipio,
+  "cityName": ciudadnombre,
+  "city": cve_ciudad,
+  "suburbName": nombre,
+  "suburb": c_asentamiento
+}]`;

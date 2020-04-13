@@ -225,4 +225,10 @@ export class OnboardingController {
     const response = await OnboardingController.createServiceAndSetAuth(req).fundProvider(memberId, req.body);
     res.status(200).json(response);
   }
+
+  public static async getStateCityMunicipality(req: MeedRequest, res: Response): Promise<void> {
+    const postCode = req.params.postCode;
+    const response = await OnboardingController.createServiceAndSetAuth(req).getStateCityMunicipality({ postCode });
+    res.status(200).json(response);
+  }
 }

@@ -13,6 +13,13 @@ export const OnboardErrCodes = Object.freeze({
     message: 'Customer id already exists',
     errorCode: '603',
     httpCode: 409
+  },
+  addressInfo: {
+    POST_CODE_NOT_EXISTS: {
+      message: 'Post code does not exist',
+      errorCode: '616',
+      httpCode: 400
+    }
   }
 });
 
@@ -27,16 +34,26 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
       case '100':
         return response.busqueda as InvexResponse[];
       case '113':
-        err = OnboardErrCodes.USERNAME_ALREADY_EXISTS;
-        break;
+        return this.throwError(OnboardErrCodes.USERNAME_ALREADY_EXISTS);
       case '111':
-        err = OnboardErrCodes.CUSTOMERID_ALREADY_EXISTS;
-        break;
+        return this.throwError(OnboardErrCodes.CUSTOMERID_ALREADY_EXISTS);
       default:
-        err = INTERNAL_SERVER_ERROR;
+        return this.throwError(INTERNAL_SERVER_ERROR);
     }
+  }
 
-    const { message, errorCode, httpCode } = err;
-    throw new HTTPError(message, errorCode, httpCode);
+  static stateCityMunicipality(response: InvexResponseData): InvexResponse | InvexResponse[] {
+    // will throw error if 'codRet' is not success i,e '000'
+    this.checkSuccess(response);
+
+    let err: IError;
+    switch (response.busqueda[0]?.respcode) {
+      case '000':
+        return response.busqueda as InvexResponse[];
+      case '100':
+        return this.throwError(OnboardErrCodes.addressInfo.POST_CODE_NOT_EXISTS);
+      default:
+        return this.throwError(INTERNAL_SERVER_ERROR);
+    }
   }
 }

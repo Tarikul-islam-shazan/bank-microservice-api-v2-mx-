@@ -1,6 +1,7 @@
 import jsonTransformer from 'jsonata';
 import { HTTPError } from '../../../../utils/httpErrors';
 import HttpStatus from 'http-status-codes';
+import { stateCitymunicipalityResponseTemplate } from './templates';
 
 export class ResponseMapper {
   static applyForAccountIdentity(axxiomeResponse) {
@@ -98,6 +99,14 @@ export class ResponseMapper {
         "paymentTrackingID": Data.Administrative.ProcessId
       }`;
       return jsonTransformer(template).evaluate(axxiomeResponse);
+    } catch (error) {
+      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  static stateCitymunicipality(invexResponse) {
+    try {
+      return jsonTransformer(stateCitymunicipalityResponseTemplate).evaluate(invexResponse);
     } catch (error) {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }
