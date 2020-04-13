@@ -21,4 +21,9 @@ export class IvxErrorMapper {
       throw new HTTPError(message, errorCode, httpCode);
     }
   }
+
+  static throwError(error: IError): never {
+    const { message, errorCode, httpCode } = error;
+    throw new HTTPError(message, errorCode, httpCode);
+  }
 }

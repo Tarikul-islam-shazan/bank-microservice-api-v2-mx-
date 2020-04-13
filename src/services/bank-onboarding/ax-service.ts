@@ -75,27 +75,23 @@ export class IvxOnboardingService implements IOnboardingService {
 
   //#region apply for account
   /**
-   * This method will create an account id if this is successful, otherwise it may gives some identity verification question
-   * If user drop off from identity verification and need to fetch identity verification question again please call 'getIdentityQuestions'
-   * to fetch the questions again
-   *
    * @param {string} memberId
-   * @param {BankApplication} application
-   * @returns {(Promise<IMember>)}
+   * @param {string} customerId
+   * @param {IGeneralInfo} generalInfo
+   * @returns {Promise<IMember>}
    * @memberof IvxOnboardingService
-   * @version v1.0.0
    */
-  async generalInformation(memberId: string, generalInfo: IGeneralInfo): Promise<IMember> {
-    // TODO: Hove to call invex bank api with generalInfo
-    // Now returning demo data for now
+  async generalInformation(memberId: string, customerId: string, generalInfo: IGeneralInfo): Promise<IMember> {
+    const apiBody = RequestMapper.generalInfo({ ...generalInfo, customerId });
+    const response = await MeedAxios.getInvexInstance().post(``, { ...apiBody });
+
+    IvxOnboardErrMapper.generalInfo(response.data);
 
     const member = await MeedService.updateMember({
       id: memberId,
       applicationProgress: ApplicationProgress.GeneralInfoCompleted
-      // applicationStatus: ApplicationStatus.Denied
     });
-
-    return { ...member, generalInfo } as any;
+    return member;
   }
 
   async beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember> {

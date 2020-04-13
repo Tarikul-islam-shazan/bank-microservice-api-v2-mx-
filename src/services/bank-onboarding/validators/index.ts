@@ -34,7 +34,8 @@ const CommonInfo = Joi.object({
 
 export const GeneralInfo = CommonInfo.append({
   curp: Joi.string().required(),
-  mobileNumber: Joi.string().required()
+  mobileNumber: Joi.string().required(),
+  email: Joi.string().required()
 });
 
 export const ApplyForAccount = Joi.object({
