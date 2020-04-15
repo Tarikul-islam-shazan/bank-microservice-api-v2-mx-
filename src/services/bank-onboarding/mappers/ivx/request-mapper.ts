@@ -15,7 +15,8 @@ import {
   ScannedIdDataTemplate,
   identityAnswer,
   productOnboarding,
-  addressInfoTemplate
+  addressInfoTemplate,
+  beneficiaryInfoTempl
 } from './templates';
 
 export class RequestMapper {
@@ -139,6 +140,14 @@ export class RequestMapper {
   static addressInfo(requestBody: IAddressInfo) {
     try {
       return jsonTransformer(addressInfoTemplate).evaluate(requestBody);
+    } catch (error) {
+      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  static beneficiaryInfo(requestBody: any) {
+    try {
+      return jsonTransformer(beneficiaryInfoTempl).evaluate(requestBody);
     } catch (error) {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }

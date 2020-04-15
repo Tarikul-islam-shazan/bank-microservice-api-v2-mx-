@@ -70,7 +70,12 @@ export class OnboardingController {
    */
   public static async beneficiaryInformation(req: MeedRequest, res: Response): Promise<void> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
-    const response = await OnboardingController.createServiceAndSetAuth(req).beneficiaryInformation(memberId, req.body);
+    const customerId = req.headers['meedbankingclub-customerid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).beneficiaryInformation(
+      memberId,
+      customerId,
+      req.body
+    );
     res.status(200).json(response);
   }
 

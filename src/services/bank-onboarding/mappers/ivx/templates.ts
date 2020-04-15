@@ -161,3 +161,16 @@ export const productOnboarding = `{
 export const addressInfoTemplate = `{
   
 }`;
+
+export const beneficiaryInfoTempl = `{
+  "metodoNombre": "MTD130",
+  "metodopEntrada": [
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": paternalLastName },
+    { "llave": "string", "valor": maternalLastName },
+    { "llave": "string", "valor": firstName },
+    { "llave": "string", "valor": secondName },
+    { "llave": "string", "valor": dateOfBirth },
+    { "llave": "string", "valor": relationship }
+  ]
+}`;

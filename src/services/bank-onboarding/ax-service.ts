@@ -98,14 +98,19 @@ export class IvxOnboardingService implements IOnboardingService {
     return { ...member, generalInfo } as any;
   }
 
-  async beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember> {
+  async beneficiaryInformation(
+    memberId: string,
+    customerId: string,
+    beneficiaryInfo: IBeneficiaryInfo
+  ): Promise<IMember> {
+    const apiBody = RequestMapper.beneficiaryInfo({ ...beneficiaryInfo, customerId });
+    const response = await MeedAxios.getInvexInstance().post(``, apiBody);
+    IvxOnboardErrMapper.beneficiaryInfo(response.data);
     const member = await MeedService.updateMember({
       id: memberId,
       applicationProgress: ApplicationProgress.BeneficiaryInfoCompleted
-      // applicationStatus: ApplicationStatus.Denied
     });
-
-    return { ...member, beneficiaryInfo } as any;
+    return member;
   }
 
   //#endregion
