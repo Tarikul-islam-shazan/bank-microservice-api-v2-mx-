@@ -525,22 +525,29 @@ paths:
     post:
       tags:
         - onboarding
-      summary: 'Start axxiome onboarding (Step: 9)'
+      summary: 'Start invex onboarding (Step: 06)'
       description: Create login credential
       operationId: createLogin
       parameters:
         - in: header
           name: meedbankingclub-bank-identifier
-          example: axiomme
+          example: invex
           required: true
           schema:
             type: string
         - in: header
-          name: meedbankingclub-bank-memberid
+          name: meedbankingclub-memberid
           example: '5c17349a8ca47446b6103696'
           required: true
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLogin'
+        description: credentials created
+        required: true
       responses:
         '200':
           description: successful operation
@@ -558,15 +565,11 @@ paths:
                   value:
                     code: '602'
                     message: 'Username already exists'
-        '400':
-          description: No Security Questions found
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateLogin'
-        description: meed member application created
-        required: true
+                CUSTOMERID_ALREADY_EXISTS:
+                  summary: 'Customerid Exists'
+                  value:
+                    code: '603'
+                    message: 'Customerid already exists'
 
   /jumio-web-initiate:
     post:
@@ -717,95 +720,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 
         '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /bank/onboarding/apply:
-    post:
-      summary: 'Apply to Bank (Step: 13)'
-      description: 'A user applies for creating an account, the bank may accept the application and create an account or Bank may return further questions to verify the identity of the user.'
-      tags:
-        - onboarding
-      parameters:
-        - in: header
-          name: meedbankingclub-bank-identifier
-          example: axiomme
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: meedbankingclub-memberid
-          example: 5da5ae14ac5040209c8580d6
-          required: true
-          schema:
-            type: string
-        - in: header
-          name: meedbankingclub-username
-          example: 'newuser'
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BankApplication'
-      responses:
-        200:
-          description: 'success'
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  - $ref: '#/components/schemas/ApplySuccess'
-                  - $ref: '#/components/schemas/IdentityQuestions'
-              examples:
-                SuccessfulSignUp:
-                  $ref: '#/components/examples/ApplySuccessExample'
-                AdditionalVerificationRequired:
-                  $ref: '#/components/examples/IdentityQuestionsExample'
-        406:
-          description: 'Error'
-          content:
-            application/json:
-              examples:
-                APPLICANT_MINOR:
-                  summary: 'Minor Applicant'
-                  value:
-                    code: '604'
-                    message: 'Applicant is not eligible'
-                APPLICANT_DECEASED:
-                  summary: 'Applicant Deceased'
-                  value:
-                    code: '605'
-                    message: 'Application is deceased'
-                NOT_ACCEPTABLE:
-                  summary: 'Applicantion Not Acceptable'
-                  value:
-                    code: '606'
-                    message: 'Application is not acceptable'
-        409:
-          description: 'Error'
-          content:
-            application/json:
-              examples:
-                DUPLICATE_TIN_NUMBER:
-                  summary: 'Duplicate TIN'
-                  value:
-                    code: '603'
-                    message: 'A member with this TIN number is already exists'
-        422:
-          description: 'Error'
-          content:
-            application/json:
-              examples:
-                IDENTITY_VERIFICATION_NOT_FOUND:
-                  summary: 'Identity Verification Not Found'
-                  value:
-                    code: '607'
-                    message: 'Identity verification not found'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        500:
           $ref: '#/components/responses/InternalServerError'
 
   /bank/accounts:
@@ -1498,6 +1412,130 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BankRegistrationFeeResponse'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+  /v1.0.0/bank/onboarding/apply/general-info:
+    post:
+      description: 'User general information'
+      summary: 'User general information (Step: 07)'
+      tags:
+        - onboarding
+      parameters:
+        - in: header
+          name: meedbankingclub-bank-identifier
+          example: invex
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-memberid
+          example: 5da5ae14ac5040209c8580d6
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-customerid
+          example: '00000000011'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/OnboardingCommonInfo'
+                - type: object
+                  properties:
+                    curp:
+                      type: string
+                      example: 'BADD110313HCMLNS04'
+                    mobileNumber:
+                      type: string
+                      example: '5590901810'
+                    email:
+                      type: string
+                      example: 'userinvex01@yopmail.com'
+                  required:
+                    - curp
+                    - mobileNumber
+                    - email
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicationProgress:
+                    type: string
+                    example: 'general-info-completed'
+        400:
+          description: 'Errors'
+          content:
+            application/json:
+              examples:
+                REG_TYPE_INVALID:
+                  summary: 'REG_TYPE_INVALID'
+                  value:
+                    code: '606'
+                    message: 'The registration type is a not valid'
+                PERSON_TYPE_INVALID:
+                  summary: 'PERSON_TYPE_INVALID'
+                  value:
+                    code: '607'
+                    message: 'The type of person does not correspond'
+                CURP_LENGTH_INVALID:
+                  summary: 'CURP_LENGTH_INVALID'
+                  value:
+                    code: '608'
+                    message: 'The length of CURP is wrong'
+                CUSTOMERID_LENGTH_INVALID:
+                  summary: 'CUSTOMERID_LENGTH_INVALID'
+                  value:
+                    code: '609'
+                    message: 'The length in the customerId is incorrect'
+                MEED_ID_REQUIRED:
+                  summary: 'MEED_ID_REQUIRED'
+                  value:
+                    code: '611'
+                    message: 'The Meed ID is a required value'
+                MEED_ID_NOT_FOUND:
+                  summary: 'MEED_ID_NOT_FOUND'
+                  value:
+                    code: '612'
+                    message: 'The Meed ID does not exist'
+        409:
+          description: 'Errors'
+          content:
+            application/json:
+              examples:
+                CLIENT_ALREADY_EXISTS:
+                  summary: 'CLIENT_ALREADY_EXISTS'
+                  value:
+                    code: '604'
+                    message: 'Client already exists'
+                CUSTOMER_ALREADY_ASSIGNED:
+                  summary: 'CUSTOMER_ALREADY_ASSIGNED'
+                  value:
+                    code: '605'
+                    message: 'Customer has already been assigned'
+                TAX_PAYER_ID_ASSIGNED:
+                  summary: 'TAX_PAYER_ID_ASSIGNED'
+                  value:
+                    code: '610'
+                    message: 'The customer with Tax Payer ID ( XXXXXX ) has been already assigned the CustID (XXXX)'
+                MEED_ID_ALREADY_ASSIGNED:
+                  summary: 'MEED_ID_ALREADY_ASSIGNED'
+                  value:
+                    code: '613'
+                    message: 'The MeedID has already been assigned to another customer'
+
         403:
           $ref: '#/components/responses/Forbidden'
         500:
@@ -4957,26 +4995,28 @@ components:
       schema:
         type: string
   schemas:
-    ApplySuccess:
+    OnboardingCommonInfo:
       type: object
       properties:
-        customerId:
+        firstName:
           type: string
-    AddInviter:
-      type: object
-      description: 'This request body for add inviter'
-      properties:
-        inviter:
+          example: 'Londo'
+        secondName:
           type: string
-          example: '5e468969e49c74518c5b43a2'
-    AddCountry:
-      description: 'This request body for add country id'
-      type: object
-      properties:
-        country:
+          example: 'Jac'
+        dateOfBirth:
           type: string
-          example: '5c17349a8ca47446b6103696'
-
+          example: '12/09/1990'
+        paternalLastName:
+          type: string
+          example: 'Rio'
+        maternalLastName:
+          type: string
+          example: 'Loo'
+      required:
+        - firstName
+        - dateOfBirth
+        - paternalLastName
     SavingGoals:
       type: array
       items:
@@ -5624,14 +5664,19 @@ components:
     CreateLogin:
       type: object
       required:
+        - username
         - email
+        - password
       properties:
         username:
           type: string
+          example: 'invexuser'
         email:
           type: string
+          example: 'invexuser@yopmail.com'
         password:
           type: string
+          example: 'e309b7649e5448a2d65a180e9236f355e3201e781ee48f4bb87bfdcc76cac05c'
 
     CreateLoginResponse:
       type: object
@@ -5641,14 +5686,13 @@ components:
           example: '5d9afd16aae5ed216b9e5ff8'
         email:
           type: string
-        applicationStatus:
+          example: 'invexuser@yopmail.com'
+        username:
           type: string
-          enum:
-            - not-started
-            - started
-            - on-hold
-            - denied
-            - completed
+          example: 'invexuser'
+        customerId:
+          type: string
+          example: '00000000011'
     ValidateReferralByEmail:
       type: object
       properties:
@@ -5703,7 +5747,7 @@ components:
     Member:
       type: object
       properties:
-        id:
+        _id:
           type: string
         email:
           type: string
@@ -6670,10 +6714,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
-    ApplySuccessExample:
-      summary: example of successful apply
-      value:
-        customerId: 0000007631
     MeedMemberExample:
       summary: example of a meed member data object
       value:
