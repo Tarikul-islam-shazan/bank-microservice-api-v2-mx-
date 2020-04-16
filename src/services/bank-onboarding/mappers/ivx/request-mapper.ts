@@ -16,7 +16,8 @@ import {
   identityAnswer,
   productOnboarding,
   addressInfoTemplate,
-  generalInfoTemplate
+  generalInfoTemplate,
+  stateCityMunicipality
 } from './templates';
 
 export class RequestMapper {
@@ -148,6 +149,14 @@ export class RequestMapper {
   static generalInfo(requestBody: any) {
     try {
       return jsonTransformer(generalInfoTemplate).evaluate(requestBody);
+    } catch (error) {
+      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  static stateCityMunicipality(postCode: Partial<IAddressInfo>) {
+    try {
+      return jsonTransformer(stateCityMunicipality).evaluate(postCode);
     } catch (error) {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }

@@ -65,6 +65,11 @@ export const OnboardErrCodes = Object.freeze({
     }
   },
   addressInfo: {
+    POST_CODE_NOT_EXISTS: {
+      message: 'Post code does not exist',
+      errorCode: '616',
+      httpCode: 400
+    },
     CUSTOMERID_NOT_EXISTS: {
       message: 'The Customer Id provided does not exist.',
       errorCode: '617',
@@ -142,6 +147,22 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
         return this.throwError(OnboardErrCodes.general.MEED_ID_NOT_FOUND);
       case '133':
         return this.throwError(OnboardErrCodes.general.MEED_ID_ALREADY_ASSIGNED);
+      default:
+        return this.throwError(INTERNAL_SERVER_ERROR);
+    }
+  }
+
+
+  static stateCityMunicipality(response: InvexResponseData): InvexResponse | InvexResponse[] {
+    // will throw error if 'codRet' is not success i,e '000'
+    this.checkSuccess(response);
+
+    let err: IError;
+    switch (response.busqueda[0]?.respcode) {
+      case '000':
+        return response.busqueda as InvexResponse[];
+      case '100':
+        return this.throwError(OnboardErrCodes.addressInfo.POST_CODE_NOT_EXISTS);
       default:
         return this.throwError(INTERNAL_SERVER_ERROR);
     }
