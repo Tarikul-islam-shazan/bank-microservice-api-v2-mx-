@@ -465,4 +465,18 @@ export class IvxOnboardingService implements IOnboardingService {
 
     return member;
   }
+
+  /**
+   * This method will return State, Municipality, City
+   *
+   * @param {string} postCode
+   * @returns {Promise<Partial<IAddressInfo>>}
+   * @memberof IvxOnboardingService
+   */
+  async getStateCityMunicipality(postCode: Partial<IAddressInfo>): Promise<Partial<IAddressInfo>> {
+    const apiBody = RequestMapper.stateCityMunicipality(postCode);
+    const bankResponse = await MeedAxios.getInvexInstance().post('', apiBody);
+    const response = IvxOnboardErrMapper.stateCityMunicipality(bankResponse.data);
+    return ResponseMapper.stateCitymunicipality(response);
+  }
 }

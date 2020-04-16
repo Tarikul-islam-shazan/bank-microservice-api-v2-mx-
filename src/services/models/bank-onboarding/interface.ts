@@ -22,6 +22,7 @@ export interface IOnboardingService extends IBankService {
   personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
   govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
   fundProvider(memberId: string, funding: IFundProvider): Promise<IMember>;
+  getStateCityMunicipality(postCode: Partial<IAddressInfo>): Promise<Partial<IAddressInfo>>;
 }
 
 export interface Credential {
@@ -165,9 +166,13 @@ export interface IAddressInfo {
   interiorNumber: string;
   postCode: string;
   state: string;
+  stateName?: string;
   municipality: string;
+  municipalityName?: string;
   city: string;
+  cityName?: string;
   suburb: string;
+  suburbName?: string;
   dateOfResidence: string;
 }
 
