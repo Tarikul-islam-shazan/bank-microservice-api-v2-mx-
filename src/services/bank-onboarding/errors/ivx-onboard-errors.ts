@@ -174,12 +174,10 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
     }
   }
 
-
   static stateCityMunicipality(response: InvexResponseData): InvexResponse | InvexResponse[] {
     // will throw error if 'codRet' is not success i,e '000'
     this.checkSuccess(response);
 
-    let err: IError;
     switch (response.busqueda[0]?.respcode) {
       case '000':
         return response.busqueda as InvexResponse[];
@@ -213,7 +211,6 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
     // will throw error if 'codRet' is not success i,e '000'
     this.checkSuccess(response);
 
-    let err: IError;
     switch (response.busqueda[0]?.respcode) {
       case '000':
         return response.busqueda as InvexResponse[];

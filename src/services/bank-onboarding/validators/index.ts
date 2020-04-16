@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import moment from 'moment';
-import { AccountSelection, Sex, MaritalStatus } from '../../models/bank-onboarding/interface';
+import { Sex, MaritalStatus, AccountLevel } from '../../models/bank-onboarding/interface';
 
 const validateDate = value => {
   if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
@@ -70,7 +70,7 @@ export const ApplyForAccount = Joi.object({
       fundSourceInfo: CommonInfo.when('selfFundSource', { is: false, then: Joi.required() })
     }),
     accountSelection: Joi.string()
-      .valid(...Object.values(AccountSelection))
+      .valid(...Object.values(AccountLevel))
       .required(),
     personalInfo: Joi.object({
       countryOfBirth: Joi.string().required(),
@@ -109,7 +109,7 @@ export const ApplyForAccount = Joi.object({
         phone: Joi.string().required(),
         participationPersent: Joi.number().required()
       }).when('relativeHoldGovPosition', { is: true, then: Joi.required() })
-    }).when('accountSelection', { is: AccountSelection.Express, then: Joi.required() })
+    }).when('accountSelection', { is: AccountLevel.Express, then: Joi.required() })
   })
 });
 
@@ -133,7 +133,7 @@ export const BeneficiaryInfo = CommonInfo.append({
 
 export const SignupAccountLevel = Joi.object({
   accountLevel: Joi.string()
-    .valid(...Object.values(AccountSelection))
+    .valid(...Object.values(AccountLevel))
     .required()
 });
 

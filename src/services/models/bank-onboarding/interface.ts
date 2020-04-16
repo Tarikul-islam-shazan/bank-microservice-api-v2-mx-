@@ -18,7 +18,7 @@ export interface IOnboardingService extends IBankService {
   generalInformation(memberId: string, customerId: string, generalInfo: IGeneralInfo): Promise<IMember>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
   addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember>;
-  selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember>;
+  selectAccountLevel(memberId: string, accountLevel: AccountLevel): Promise<IMember>;
   personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
   govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
   fundProvider(memberId: string, funding: IFundProvider): Promise<IMember>;
@@ -130,7 +130,7 @@ export interface BankApplication {
   application: IMemberApplication;
 }
 
-export enum AccountSelection {
+export enum AccountLevel {
   Full = 'Full',
   Express = 'Express'
 }
@@ -139,7 +139,7 @@ export interface MxMemberInfo extends IMemberApplication {
   generalInfo: IGeneralInfo;
   addressInfo: IAddressInfo;
   beneficiaryInfo: IBeneficiaryInfo;
-  accountSelection: AccountSelection;
+  accountLevel: AccountLevel;
   personalInfo?: IPersonalInfo;
 }
 

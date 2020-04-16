@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { ApplicationStatus, ApplicationProgress, AccountStatus, IMember, MemberType } from '../../models/meedservice';
+import { AccountLevel } from '../../models/bank-onboarding/interface';
 
 const MemberSchema = new Schema(
   {
@@ -19,6 +20,7 @@ const MemberSchema = new Schema(
       default: ApplicationProgress.EmailRegistered
     },
     accountStatus: { type: String, enum: Object.values(AccountStatus), default: AccountStatus.InProgress },
+    accountLevel: { type: String, enum: Object.values(AccountLevel) },
     bank: { type: Schema.Types.ObjectId, ref: 'Bank' },
     memberType: {
       type: String,
