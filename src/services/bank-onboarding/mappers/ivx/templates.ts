@@ -176,6 +176,24 @@ export const addressInfoTemplate = `{
   ]
 }`;
 
+
+export const generalInfoTemplate = `{
+  "metodoNombre": "MTD126",
+  "metodopEntrada": [
+    { "llave": "string", "valor": "A" },
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": "01" },
+    { "llave": "string", "valor": paternalLastName },
+    { "llave": "string", "valor": maternalLastName },
+    { "llave": "string", "valor": firstName },
+    { "llave": "string", "valor": secondName },
+    { "llave": "string", "valor": dateOfBirth },
+    { "llave": "string", "valor": curp },
+    { "llave": "string", "valor": mobileNumber },
+    { "llave": "string", "valor": email }
+  ]
+}`;
+
 export const stateCityMunicipality = `{
   "metodoNombre": "MTD122",
   "metodopEntrada": [
@@ -196,3 +214,4 @@ export const stateCitymunicipalityResponseTemplate = `[$.{
   "suburbName": nombre,
   "suburb": c_asentamiento
 }]`;
+
