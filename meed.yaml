@@ -231,7 +231,6 @@ paths:
                 $ref: '#/components/schemas/Member'
         '400':
           $ref: '#/components/responses/ValidationException'
-
     # patch:
     #   tags:
     #     - onboarding
@@ -1606,7 +1605,6 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
-
   /bank/onboarding/apply/address-info:
     post:
       description: 'User address information'
@@ -1719,7 +1717,7 @@ paths:
                   summary: 'STATE_INCORRECT'
                   value:
                     code: '622'
-                    message: 'The value for State is incorrect.
+                    message: 'The value for State is incorrect.'
 
         403:
           $ref: '#/components/responses/Forbidden'
@@ -1741,7 +1739,7 @@ paths:
             type: string
         - in: header
           name: meedbankingclub-memberid
-          example: "5da5ae14ac5040209c8580d6"
+          example: '5da5ae14ac5040209c8580d6'
           required: true
           schema:
             type: string
@@ -1754,8 +1752,8 @@ paths:
               properties:
                 accountLevel:
                   type: string
-                  example: "Full"
-                  enum: ["Express", "Full"]
+                  example: 'Full'
+                  enum: ['Express', 'Full']
 
               required:
                 - accountLevel
@@ -1777,7 +1775,7 @@ paths:
                         type: string
                       accountLevel:
                         type: string
-                        example: "Full"
+                        example: 'Full'
         403:
           $ref: '#/components/responses/Forbidden'
 
