@@ -184,6 +184,12 @@ export const FundProvider = Joi.object({
   providerInfo: CommonInfo.when('fundMyself', { is: false, then: Joi.required() })
 });
 
+export const FundProviderHeader = Joi.object({
+  'meedbankingclub-memberid': Joi.string().required(),
+  'meedbankingclub-customerid': Joi.string().required(),
+  'meedbankingclub-bank-identifier': Joi.string().required()
+});
+
 export const AcceptTermsAndCondition = Joi.object({
   isTermsAccepted: Joi.boolean().required(),
   processId: Joi.string().required(),

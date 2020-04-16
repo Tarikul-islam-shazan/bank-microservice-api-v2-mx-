@@ -21,7 +21,7 @@ export interface IOnboardingService extends IBankService {
   selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember>;
   personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
   govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
-  fundProvider(memberId: string, funding: IFundProvider): Promise<IMember>;
+  fundProvider(memberId: string, customerId: string, funding: IFundProvider): Promise<IMember>;
   getStateCityMunicipality(postCode: Partial<IAddressInfo>): Promise<Partial<IAddressInfo>>;
 }
 
