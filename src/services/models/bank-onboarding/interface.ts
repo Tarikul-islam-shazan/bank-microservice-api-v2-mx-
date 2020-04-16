@@ -27,7 +27,6 @@ export interface IOnboardingService extends IBankService {
 
 export interface Credential {
   username: string;
-  email: string;
   password: string;
 }
 
