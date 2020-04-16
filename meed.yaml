@@ -231,7 +231,6 @@ paths:
                 $ref: '#/components/schemas/Member'
         '400':
           $ref: '#/components/responses/ValidationException'
-
     # patch:
     #   tags:
     #     - onboarding
@@ -1418,7 +1417,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
-  /v1.0.0/bank/onboarding/apply/general-info:
+  /bank/onboarding/apply/general-info:
     post:
       description: 'User general information'
       summary: 'User general information (Step: 07)'
@@ -1606,7 +1605,6 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
-
   /bank/onboarding/apply/address-info:
     post:
       description: 'User address information'
@@ -1719,13 +1717,70 @@ paths:
                   summary: 'STATE_INCORRECT'
                   value:
                     code: '622'
-                    message: 'The value for State is incorrect.
+                    message: 'The value for State is incorrect.'
 
         403:
           $ref: '#/components/responses/Forbidden'
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /bank/onboarding/apply/account-level:
+    post:
+      description: 'Set Account Level for User'
+      summary: 'Set Account Level for User (Step: 11)'
+      tags:
+        - onboarding
+      parameters:
+        - in: header
+          name: meedbankingclub-bank-identifier
+          example: invex
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-memberid
+          example: '5da5ae14ac5040209c8580d6'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountLevel:
+                  type: string
+                  example: 'Full'
+                  enum: ['Express', 'Full']
+
+              required:
+                - accountLevel
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Member'
+                  - type: object
+                    properties:
+                      applicationProgress:
+                        type: string
+                        example: 'account-level-selected'
+                      customerId:
+                        type: string
+                      accountLevel:
+                        type: string
+                        example: 'Full'
+        403:
+          $ref: '#/components/responses/Forbidden'
+
+        500:
+          $ref: '#/components/responses/InternalServerError'
 
   /bank/internal-transfer:
     get:

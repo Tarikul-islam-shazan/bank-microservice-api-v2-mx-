@@ -16,7 +16,7 @@ import {
   IBeneficiaryInfo,
   IGovDisclosure,
   IFundProvider,
-  AccountSelection,
+  AccountLevel,
   IPersonalInfo
 } from '../models/bank-onboarding/interface';
 import { IMember, AccountStatus } from '../models/meedservice/member';
@@ -402,9 +402,10 @@ export class IvxOnboardingService implements IOnboardingService {
    * @returns {Promise<IMember>}
    * @memberof IvxOnboardingService
    */
-  async selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember> {
+  async selectAccountLevel(memberId: string, accountLevel: AccountLevel): Promise<IMember> {
     const member = await MeedService.updateMember({
       id: memberId,
+      accountLevel,
       applicationProgress: ApplicationProgress.AccountLevelSelected
     });
 

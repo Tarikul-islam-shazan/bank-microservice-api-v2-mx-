@@ -1,4 +1,5 @@
 import { IStaticData } from '.';
+import { AccountLevel } from '../bank-onboarding/interface';
 
 export enum ApplicationProgress {
   EmailRegistered = 'email-registered',
@@ -60,6 +61,7 @@ export interface IMember {
   applicationStatus?: ApplicationStatus;
   applicationProgress?: ApplicationProgress;
   accountStatus?: AccountStatus;
+  accountLevel?: AccountLevel;
   memberType?: MemberType;
   bank?: string | any;
   country?: string;
