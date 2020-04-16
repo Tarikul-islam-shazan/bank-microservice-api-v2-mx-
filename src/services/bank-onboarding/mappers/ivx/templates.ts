@@ -159,5 +159,19 @@ export const productOnboarding = `{
 }`;
 
 export const addressInfoTemplate = `{
-  
+  "metodoNombre": "MTD128",
+  "metodopEntrada": [
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": addressType },
+    { "llave": "string", "valor": propertyType },
+    { "llave": "string", "valor": postCode },
+    { "llave": "string", "valor": state },
+    { "llave": "string", "valor": municipality },
+    { "llave": "string", "valor": city },
+    { "llave": "string", "valor": suburb },
+    { "llave": "string", "valor": street },
+    { "llave": "string", "valor": outdoorNumber },
+    { "llave": "string", "valor": interiorNumber },
+    { "llave": "string", "valor": dateOfResidence }
+  ]
 }`;
