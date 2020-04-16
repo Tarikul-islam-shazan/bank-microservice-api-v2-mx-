@@ -14,8 +14,8 @@ export interface IOnboardingService extends IBankService {
     processId?: string,
     corporateTncAccepted?: boolean | undefined
   ): Promise<ProductOnboardedResponse>;
+  beneficiaryInformation(memberId: string, customerId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember>;
   generalInformation(memberId: string, customerId: string, generalInfo: IGeneralInfo): Promise<IMember>;
-  beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
   addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember>;
   selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember>;
@@ -157,7 +157,9 @@ export interface IGeneralInfo extends ICommonInfo {
   email: string;
 }
 
-export interface IBeneficiaryInfo extends ICommonInfo {}
+export interface IBeneficiaryInfo extends ICommonInfo {
+  relationship: string;
+}
 
 export interface IAddressInfo {
   addressType: string;

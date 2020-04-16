@@ -127,7 +127,9 @@ export const SignupAddressInfo = Joi.object({
   dateOfResidence: Joi.string().required()
 });
 
-export const BeneficiaryInfo = CommonInfo;
+export const BeneficiaryInfo = CommonInfo.append({
+  relationship: Joi.string().required()
+});
 
 export const SignupAccountLevel = Joi.object({
   accountLevel: Joi.string()

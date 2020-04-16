@@ -176,7 +176,6 @@ export const addressInfoTemplate = `{
   ]
 }`;
 
-
 export const generalInfoTemplate = `{
   "metodoNombre": "MTD126",
   "metodopEntrada": [
@@ -215,3 +214,15 @@ export const stateCitymunicipalityResponseTemplate = `[$.{
   "suburb": c_asentamiento
 }]`;
 
+export const beneficiaryInfoTempl = `{
+  "metodoNombre": "MTD130",
+  "metodopEntrada": [
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": paternalLastName },
+    { "llave": "string", "valor": maternalLastName },
+    { "llave": "string", "valor": firstName },
+    { "llave": "string", "valor": secondName },
+    { "llave": "string", "valor": dateOfBirth },
+    { "llave": "string", "valor": relationship }
+  ]
+}`;
