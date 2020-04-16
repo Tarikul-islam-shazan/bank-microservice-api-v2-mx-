@@ -13,6 +13,12 @@ export const MemberIdRequired = Joi.object({
   'meedbankingclub-memberid': Joi.string().required()
 });
 
+export const AddressInfoHeader = Joi.object({
+  'meedbankingclub-memberid': Joi.string().required(),
+  'meedbankingclub-customerid': Joi.string().required(),
+  'meedbankingclub-bank-identifier': Joi.string().required()
+});
+
 export const UsernameMemberIdRequired = Joi.object({
   'meedbankingclub-memberid': Joi.string().required(),
   'meedbankingclub-username': Joi.string().required()
@@ -118,7 +124,7 @@ export const SignupAddressInfo = Joi.object({
   municipality: Joi.string().required(),
   city: Joi.string().required(),
   suburb: Joi.string().required(),
-  timeAtResidence: Joi.string().required()
+  dateOfResidence: Joi.string().required()
 });
 
 export const BeneficiaryInfo = CommonInfo;

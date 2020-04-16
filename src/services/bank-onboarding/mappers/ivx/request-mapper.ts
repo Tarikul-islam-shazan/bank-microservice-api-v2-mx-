@@ -137,9 +137,9 @@ export class RequestMapper {
     }
   }
 
-  static addressInfo(requestBody: IAddressInfo) {
+  static addressInfo(customerId: string, requestBody: IAddressInfo) {
     try {
-      return jsonTransformer(addressInfoTemplate).evaluate(requestBody);
+      return jsonTransformer(addressInfoTemplate).evaluate({ customerId, ...requestBody });
     } catch (error) {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }

@@ -231,6 +231,7 @@ paths:
                 $ref: '#/components/schemas/Member'
         '400':
           $ref: '#/components/responses/ValidationException'
+
     # patch:
     #   tags:
     #     - onboarding
@@ -1540,6 +1541,191 @@ paths:
           $ref: '#/components/responses/Forbidden'
         500:
           $ref: '#/components/responses/InternalServerError'
+
+  /bank/onboarding/{postCode}/state-city-municipality:
+    get:
+      description: 'Get State, City, Municipality and Suburb information'
+      summary: 'Get Suburb information (Step: 08)'
+      tags:
+        - onboarding
+      parameters:
+        - in: header
+          name: meedbankingclub-bank-identifier
+          example: invex
+          required: true
+          schema:
+            type: string
+
+        - in: path
+          name: postCode
+          required: true
+          schema:
+            type: string
+            example: 11000
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    stateName:
+                      type: string
+                    state:
+                      type: string
+                    municipalityName:
+                      type: string
+                    municipality:
+                      type: string
+                    cityName:
+                      type: string
+                    city:
+                      type: string
+                    suburbName:
+                      type: string
+                    suburb:
+                      type: string
+
+        400:
+          description: 'Errors'
+          content:
+            application/json:
+              examples:
+                POST_CODE_NOT_EXISTS:
+                  summary: 'POST_CODE_NOT_EXISTS'
+                  value:
+                    code: '616'
+                    message: 'Post code does not exist'
+
+        403:
+          $ref: '#/components/responses/Forbidden'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
+
+  /bank/onboarding/apply/address-info:
+    post:
+      description: 'User address information'
+      summary: 'User address information (Step: 09)'
+      tags:
+        - onboarding
+      parameters:
+        - in: header
+          name: meedbankingclub-bank-identifier
+          example: invex
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-memberid
+          example: 5da5ae14ac5040209c8580d6
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-customerid
+          example: '00000000011'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - addressType
+                - propertyType
+                - street
+                - outdoorNumber
+                - interiorNumber
+                - postCode
+                - state
+                - municipality
+                - city
+                - suburb
+                - dateOfResidence
+              properties:
+                addressType:
+                  type: string
+                propertyType:
+                  type: string
+                street:
+                  type: string
+                outdoorNumber:
+                  type: string
+                interiorNumber:
+                  type: string
+                postCode:
+                  type: string
+                state:
+                  type: string
+                municipality:
+                  type: string
+                city:
+                  type: string
+                suburb:
+                  type: string
+                dateOfResidence:
+                  type: string
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applicationProgress:
+                    type: string
+                    example: 'address-info-completed'
+        400:
+          description: 'Errors'
+          content:
+            application/json:
+              examples:
+                CUSTOMERID_NOT_EXISTS:
+                  summary: 'CUSTOMERID_NOT_EXISTS'
+                  value:
+                    code: '617'
+                    message: 'The Customer Id provided does not exist.'
+                CUSTOMERID_NOT_RELATED_TO_EXISTING_CUSTOMER:
+                  summary: 'CUSTOMERID_NOT_RELATED_TO_EXISTING_CUSTOMER'
+                  value:
+                    code: '618'
+                    message: 'The Meed ID is not related to an existing customer.'
+                ADDRESS_INCORRECT:
+                  summary: 'ADDRESS_INCORRECT'
+                  value:
+                    code: '619'
+                    message: 'The value for Type of Address is incorrect.'
+                REAL_STATE_INCORRECT:
+                  summary: 'REAL_STATE_INCORRECT'
+                  value:
+                    code: '620'
+                    message: 'The value for Type of real Estate is incorrect.'
+                POST_CODE_INCORRECT:
+                  summary: 'POST_CODE_INCORRECT'
+                  value:
+                    code: '621'
+                    message: 'The value for Zip Code is incorrect.'
+                STATE_INCORRECT:
+                  summary: 'STATE_INCORRECT'
+                  value:
+                    code: '622'
+                    message: 'The value for State is incorrect.
+
+        403:
+          $ref: '#/components/responses/Forbidden'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
 
   /bank/internal-transfer:
     get:

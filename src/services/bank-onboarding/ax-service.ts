@@ -375,8 +375,11 @@ export class IvxOnboardingService implements IOnboardingService {
    * @returns {Promise<IMember>}
    * @memberof IvxOnboardingService
    */
-  async addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember> {
-    // const apiBody = RequestMapper.addressInfo(addressInfo);
+  async addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember> {
+    const apiBody = RequestMapper.addressInfo(customerId, addressInfo);
+    const bankResponse = await MeedAxios.getInvexInstance().post('', apiBody);
+
+    IvxOnboardErrMapper.addressInfo(bankResponse.data);
 
     const member = await MeedService.updateMember({
       id: memberId,

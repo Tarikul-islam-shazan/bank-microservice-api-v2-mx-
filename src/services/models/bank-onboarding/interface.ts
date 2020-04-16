@@ -17,7 +17,7 @@ export interface IOnboardingService extends IBankService {
   generalInformation(memberId: string, customerId: string, generalInfo: IGeneralInfo): Promise<IMember>;
   beneficiaryInformation(memberId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
-  addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember>;
+  addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember>;
   selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember>;
   personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
   govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
@@ -169,7 +169,7 @@ export interface IAddressInfo {
   municipality: string;
   city: string;
   suburb: string;
-  timeAtResidence: string;
+  dateOfResidence: string;
 }
 
 export interface IPersonalInfo {
