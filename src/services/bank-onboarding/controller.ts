@@ -54,7 +54,12 @@ export class OnboardingController {
    */
   public static async generalInformation(req: MeedRequest, res: Response): Promise<void> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
-    const response = await OnboardingController.createServiceAndSetAuth(req).generalInformation(memberId, req.body);
+    const customerId = req.headers['meedbankingclub-customerid'] as string;
+    const response = await OnboardingController.createServiceAndSetAuth(req).generalInformation(
+      memberId,
+      customerId,
+      req.body
+    );
     res.status(200).json(response);
   }
 
@@ -200,8 +205,13 @@ export class OnboardingController {
   }
 
   public static async addressInfo(req: MeedRequest, res: Response): Promise<void> {
-    const memberId = req.headers['meedbankingclub-memberid'] as string;
-    const response = await OnboardingController.createServiceAndSetAuth(req).addressInfo(memberId, req.body);
+    const memberId = req.get('meedbankingclub-memberid');
+    const customerId = req.get('meedbankingclub-customerid');
+    const response = await OnboardingController.createServiceAndSetAuth(req).addressInfo(
+      memberId,
+      customerId,
+      req.body
+    );
     res.status(200).json(response);
   }
 
@@ -228,6 +238,12 @@ export class OnboardingController {
   public static async fundProvider(req: MeedRequest, res: Response): Promise<any> {
     const memberId = req.headers['meedbankingclub-memberid'] as string;
     const response = await OnboardingController.createServiceAndSetAuth(req).fundProvider(memberId, req.body);
+    res.status(200).json(response);
+  }
+
+  public static async getStateCityMunicipality(req: MeedRequest, res: Response): Promise<void> {
+    const postCode = req.params.postCode;
+    const response = await OnboardingController.createServiceAndSetAuth(req).getStateCityMunicipality({ postCode });
     res.status(200).json(response);
   }
 }

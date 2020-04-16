@@ -14,14 +14,15 @@ export interface IOnboardingService extends IBankService {
     processId?: string,
     corporateTncAccepted?: boolean | undefined
   ): Promise<ProductOnboardedResponse>;
-  generalInformation(memberId: string, generalInfo: IGeneralInfo): Promise<IMember>;
   beneficiaryInformation(memberId: string, customerId: string, beneficiaryInfo: IBeneficiaryInfo): Promise<IMember>;
+  generalInformation(memberId: string, customerId: string, generalInfo: IGeneralInfo): Promise<IMember>;
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
-  addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember>;
+  addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember>;
   selectAccountLevel(memberId: string, accountLevel: AccountSelection): Promise<IMember>;
   personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
   govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
   fundProvider(memberId: string, funding: IFundProvider): Promise<IMember>;
+  getStateCityMunicipality(postCode: Partial<IAddressInfo>): Promise<Partial<IAddressInfo>>;
 }
 
 export interface Credential {
@@ -153,6 +154,7 @@ export interface ICommonInfo {
 export interface IGeneralInfo extends ICommonInfo {
   curp: string;
   mobileNumber: string;
+  email: string;
 }
 
 export interface IBeneficiaryInfo extends ICommonInfo {
@@ -167,10 +169,14 @@ export interface IAddressInfo {
   interiorNumber: string;
   postCode: string;
   state: string;
+  stateName?: string;
   municipality: string;
+  municipalityName?: string;
   city: string;
+  cityName?: string;
   suburb: string;
-  timeAtResidence: string;
+  suburbName?: string;
+  dateOfResidence: string;
 }
 
 export interface IPersonalInfo {

@@ -75,27 +75,23 @@ export class IvxOnboardingService implements IOnboardingService {
 
   //#region apply for account
   /**
-   * This method will create an account id if this is successful, otherwise it may gives some identity verification question
-   * If user drop off from identity verification and need to fetch identity verification question again please call 'getIdentityQuestions'
-   * to fetch the questions again
-   *
    * @param {string} memberId
-   * @param {BankApplication} application
-   * @returns {(Promise<IMember>)}
+   * @param {string} customerId
+   * @param {IGeneralInfo} generalInfo
+   * @returns {Promise<IMember>}
    * @memberof IvxOnboardingService
-   * @version v1.0.0
    */
-  async generalInformation(memberId: string, generalInfo: IGeneralInfo): Promise<IMember> {
-    // TODO: Hove to call invex bank api with generalInfo
-    // Now returning demo data for now
+  async generalInformation(memberId: string, customerId: string, generalInfo: IGeneralInfo): Promise<IMember> {
+    const apiBody = RequestMapper.generalInfo({ ...generalInfo, customerId });
+    const response = await MeedAxios.getInvexInstance().post(``, { ...apiBody });
+
+    IvxOnboardErrMapper.generalInfo(response.data);
 
     const member = await MeedService.updateMember({
       id: memberId,
       applicationProgress: ApplicationProgress.GeneralInfoCompleted
-      // applicationStatus: ApplicationStatus.Denied
     });
-
-    return { ...member, generalInfo } as any;
+    return member;
   }
 
   async beneficiaryInformation(
@@ -384,8 +380,11 @@ export class IvxOnboardingService implements IOnboardingService {
    * @returns {Promise<IMember>}
    * @memberof IvxOnboardingService
    */
-  async addressInfo(memberId: string, addressInfo: IAddressInfo): Promise<IMember> {
-    // const apiBody = RequestMapper.addressInfo(addressInfo);
+  async addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember> {
+    const apiBody = RequestMapper.addressInfo(customerId, addressInfo);
+    const bankResponse = await MeedAxios.getInvexInstance().post('', apiBody);
+
+    IvxOnboardErrMapper.addressInfo(bankResponse.data);
 
     const member = await MeedService.updateMember({
       id: memberId,
@@ -466,5 +465,19 @@ export class IvxOnboardingService implements IOnboardingService {
     });
 
     return member;
+  }
+
+  /**
+   * This method will return State, Municipality, City
+   *
+   * @param {string} postCode
+   * @returns {Promise<Partial<IAddressInfo>>}
+   * @memberof IvxOnboardingService
+   */
+  async getStateCityMunicipality(postCode: Partial<IAddressInfo>): Promise<Partial<IAddressInfo>> {
+    const apiBody = RequestMapper.stateCityMunicipality(postCode);
+    const bankResponse = await MeedAxios.getInvexInstance().post('', apiBody);
+    const response = IvxOnboardErrMapper.stateCityMunicipality(bankResponse.data);
+    return ResponseMapper.stateCitymunicipality(response);
   }
 }

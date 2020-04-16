@@ -159,8 +159,60 @@ export const productOnboarding = `{
 }`;
 
 export const addressInfoTemplate = `{
-  
+  "metodoNombre": "MTD128",
+  "metodopEntrada": [
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": addressType },
+    { "llave": "string", "valor": propertyType },
+    { "llave": "string", "valor": postCode },
+    { "llave": "string", "valor": state },
+    { "llave": "string", "valor": municipality },
+    { "llave": "string", "valor": city },
+    { "llave": "string", "valor": suburb },
+    { "llave": "string", "valor": street },
+    { "llave": "string", "valor": outdoorNumber },
+    { "llave": "string", "valor": interiorNumber },
+    { "llave": "string", "valor": dateOfResidence }
+  ]
 }`;
+
+export const generalInfoTemplate = `{
+  "metodoNombre": "MTD126",
+  "metodopEntrada": [
+    { "llave": "string", "valor": "A" },
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": "01" },
+    { "llave": "string", "valor": paternalLastName },
+    { "llave": "string", "valor": maternalLastName },
+    { "llave": "string", "valor": firstName },
+    { "llave": "string", "valor": secondName },
+    { "llave": "string", "valor": dateOfBirth },
+    { "llave": "string", "valor": curp },
+    { "llave": "string", "valor": mobileNumber },
+    { "llave": "string", "valor": email }
+  ]
+}`;
+
+export const stateCityMunicipality = `{
+  "metodoNombre": "MTD122",
+  "metodopEntrada": [
+    {
+      "llave" : "string",
+      "valor": postCode
+    }
+  ]
+}`;
+
+export const stateCitymunicipalityResponseTemplate = `[$.{
+  "stateName": estadonombre,
+  "state": cve_entfed,
+  "municipalityName": municipionombre,
+  "municipality": cve_municipio,
+  "cityName": ciudadnombre,
+  "city": cve_ciudad,
+  "suburbName": nombre,
+  "suburb": c_asentamiento
+}]`;
 
 export const beneficiaryInfoTempl = `{
   "metodoNombre": "MTD130",

@@ -12,7 +12,8 @@ import {
   SignupAccountLevel,
   PersonalInfo,
   GovDisclosure,
-  FundProvider
+  FundProvider,
+  AddressInfoHeader
 } from './validators';
 import { OnboardingController } from './controller';
 import AuthMiddleware from '../../middleware/authMiddleware';
@@ -40,7 +41,7 @@ export default [
     path: 'v1.0.0/bank/onboarding/apply/address-info',
     method: 'post',
     handler: [
-      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(AddressInfoHeader, ValidationLevel.Headers),
       handleValidation(SignupAddressInfo),
       asyncWrapper(OnboardingController.addressInfo)
     ]
@@ -133,5 +134,10 @@ export default [
       handleValidation(RegistrationFee),
       asyncWrapper(OnboardingController.fundAccount)
     ]
+  },
+  {
+    path: 'v1.0.0/bank/onboarding/:postCode/state-city-municipality',
+    method: 'get',
+    handler: [asyncWrapper(OnboardingController.getStateCityMunicipality)]
   }
 ];
