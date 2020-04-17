@@ -1782,6 +1782,99 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 
+  /bank/onboarding/apply/fund-provider:
+    post:
+      description: 'Set fund provider information'
+      summary: 'Set fund provider information (Step: 13)'
+      tags:
+        - onboarding
+      parameters:
+        - in: header
+          name: meedbankingclub-bank-identifier
+          example: invex
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-memberid
+          example: '5da5ae14ac5040209c8580d6'
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: meedbankingclub-customerid
+          example: '00000000000'
+          required: true
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        description: '**\"providerInfo\"** is required only if **fundMyself** is **false** otherwise **providerInfo** is optional you should omit this filed'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fundMyself:
+                  type: boolean
+                  example: false
+                providerInfo:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                    secondName:
+                      type: string
+                    dateOfBirth:
+                      type: string
+                    paternalLastName:
+                      type: string
+                    maternalLastName:
+                      type: string
+                  required:
+                    - firstName
+                    - dateOfBirth
+                    - paternalLastName
+
+              required:
+                - fundMyself
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Member'
+                  - type: object
+                    properties:
+                      applicationProgress:
+                        type: string
+                        example: 'fund-source-info-completed'
+                      customerId:
+                        type: string
+                      accountLevel:
+                        type: string
+                        example: 'Full'
+        400:
+          description: 'Errors'
+          content:
+            application/json:
+              examples:
+                MEED_CUSTID_INVALID:
+                  summary: 'MEED_CUSTID_INVALID'
+                  value:
+                    code: '626'
+                    message: 'Meed Cust ID does not exist'
+
+        403:
+          $ref: '#/components/responses/Forbidden'
+
+        500:
+          $ref: '#/components/responses/InternalServerError'
+
   /bank/internal-transfer:
     get:
       tags:
