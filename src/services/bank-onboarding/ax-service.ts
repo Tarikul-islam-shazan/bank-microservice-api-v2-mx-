@@ -461,7 +461,9 @@ export class IvxOnboardingService implements IOnboardingService {
    */
   async fundProvider(memberId: string, customerId: string, funding: IFundProvider): Promise<IMember> {
     if (!funding.fundMyself) {
-      // Have to call invex api
+      const apiBody = RequestMapper.fundProvider(customerId, funding);
+      const response = await MeedAxios.getInvexInstance().post('', apiBody);
+      IvxOnboardErrMapper.fundProvider(response.data);
     }
 
     const member = await MeedService.updateMember({

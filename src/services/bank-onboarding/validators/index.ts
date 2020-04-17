@@ -31,10 +31,14 @@ export const CreateLogin = Joi.object({
 
 const CommonInfo = Joi.object({
   firstName: Joi.string().required(),
-  secondName: Joi.string().optional(),
+  secondName: Joi.string()
+    .optional()
+    .allow(''),
   dateOfBirth: Joi.string().required(),
   paternalLastName: Joi.string().required(),
-  maternalLastName: Joi.string().optional()
+  maternalLastName: Joi.string()
+    .optional()
+    .allow('')
 });
 
 export const GeneralInfo = CommonInfo.append({
@@ -180,7 +184,7 @@ export const FundProvider = Joi.object({
   fundMyself: Joi.boolean()
     .strict()
     .required(),
-  providerInfo: CommonInfo.when('fundMyself', { is: false, then: Joi.required() })
+  providerInfo: CommonInfo.when('fundMyself', { is: false, then: Joi.required(), otherwise: Joi.optional().allow('') })
 });
 
 export const FundProviderHeader = Joi.object({
