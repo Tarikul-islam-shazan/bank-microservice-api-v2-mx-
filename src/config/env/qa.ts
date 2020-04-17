@@ -42,6 +42,9 @@ const qaConfig = {
       secKey: 'TUVFRF9BUElfVVNFUjo1OFV6UXpiRUZoeDllVW5I', // using for jumio
       version: '2.2.0'
     },
+    invex: {
+      url: 'https://201.175.40.153:8452/InterCMaS_Invex/webresources/Items/METODOS'
+    },
     affinity: {
       url: 'https://meed.uats.affinitysolutions.com/e/api.php',
       passphrase: 'gKp2ty92SDgbns92uhj9s28C',
