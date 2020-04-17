@@ -66,7 +66,7 @@ export const OnboardErrCodes = Object.freeze({
       httpCode: 400
     },
     TAX_PAYER_ID_ASSIGNED: {
-      message: 'The customer with Tax Payer ID ( XXXXXX ) has been already assigned the CustID (XXXX)',
+      message: 'The Tax Payer ID has been already assigned the this CustID',
       errorCode: '610',
       httpCode: 409
     },
@@ -160,7 +160,12 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
       case '129':
         return this.throwError(OnboardErrCodes.general.CURP_LENGTH_INVALID);
       case '132':
-        return this.throwError(OnboardErrCodes.general.TAX_PAYER_ID_ASSIGNED);
+        const ids = (response.busqueda[0].resptext || '').match(/([A-Z+[0-9]+[A-Z]+[0-9]+)|\d+/g);
+        let message = OnboardErrCodes.general.TAX_PAYER_ID_ASSIGNED.message;
+        if (ids?.length === 2) {
+          message = `The customer with Tax Payer ID ${ids[0]} has been already assigned the CustID ${ids[1]}`;
+        }
+        return this.throwError({ ...OnboardErrCodes.general.TAX_PAYER_ID_ASSIGNED, message });
       case '134':
         return this.throwError(OnboardErrCodes.general.CUSTOMERID_LENGTH_INVALID);
       case '121':

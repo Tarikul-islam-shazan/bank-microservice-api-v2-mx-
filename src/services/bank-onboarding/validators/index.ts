@@ -31,10 +31,14 @@ export const CreateLogin = Joi.object({
 
 const CommonInfo = Joi.object({
   firstName: Joi.string().required(),
-  secondName: Joi.string().optional(),
+  secondName: Joi.string()
+    .allow('')
+    .optional(),
   dateOfBirth: Joi.string().required(),
   paternalLastName: Joi.string().required(),
-  maternalLastName: Joi.string().optional()
+  maternalLastName: Joi.string()
+    .allow('')
+    .optional()
 });
 
 export const GeneralInfo = CommonInfo.append({
