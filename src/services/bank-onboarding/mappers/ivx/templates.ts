@@ -226,3 +226,20 @@ export const beneficiaryInfoTempl = `{
     { "llave": "string", "valor": relationship }
   ]
 }`;
+
+export const personalInfoTemplate = `{
+  "metodoNombre": "MTD127",
+  "metodopEntrada": [
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": sex },
+    { "llave": "string", "valor": countryOfBirth },
+    { "llave": "string", "valor": nationality },
+    { "llave": "string", "valor": placeOfBirth },
+    { "llave": "string", "valor": maritalStatus },
+    { "llave": "string", "valor": profession },
+    { "llave": "string", "valor": occupation },
+    { "llave": "string", "valor": economicActivity },
+    { "llave": "string", "valor": hightLevelOfEducation },
+    { "llave": "string", "valor": banxicoActivity }
+  ]
+}`;

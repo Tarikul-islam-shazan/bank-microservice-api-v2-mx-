@@ -18,7 +18,8 @@ import {
   addressInfoTemplate,
   beneficiaryInfoTempl,
   generalInfoTemplate,
-  stateCityMunicipality
+  stateCityMunicipality,
+  personalInfoTemplate
 } from './templates';
 
 export class RequestMapper {
@@ -166,6 +167,14 @@ export class RequestMapper {
   static beneficiaryInfo(requestBody: any) {
     try {
       return jsonTransformer(beneficiaryInfoTempl).evaluate(requestBody);
+    } catch (error) {
+      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  static personalInfo(requestBody: any) {
+    try {
+      return jsonTransformer(personalInfoTemplate).evaluate(requestBody);
     } catch (error) {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }
