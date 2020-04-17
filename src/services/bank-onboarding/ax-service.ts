@@ -413,24 +413,21 @@ export class IvxOnboardingService implements IOnboardingService {
   }
 
   /**
-   * TODO: complete using invex bank api's
-   *
    * @param {string} memberId
+   * @param {string} customerId
    * @param {IPersonalInfo} personalInfo
    * @returns {Promise<IMember>}
    * @memberof IvxOnboardingService
    */
-  async personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember> {
-    // TODO: Have to update with invex api
-    // This is just for demo
-
+  async personalInformation(memberId: string, customerId: string, personalInfo: IPersonalInfo): Promise<IMember> {
+    const apiBody = RequestMapper.personalInfo({ ...personalInfo, customerId });
+    const bankResponse = await MeedAxios.getInvexInstance().post('', apiBody);
+    IvxOnboardErrMapper.personalInfo(bankResponse.data);
     const member = await MeedService.updateMember({
       id: memberId,
       applicationProgress: ApplicationProgress.PersonalInfoCompleted
-      // applicationStatus: ApplicationStatus.Denied
     });
-
-    return { ...member, personalInfo } as any;
+    return member;
   }
 
   /**

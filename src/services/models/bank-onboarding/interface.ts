@@ -19,7 +19,7 @@ export interface IOnboardingService extends IBankService {
   fundAccount(memberId: string, funding: RegistrationFeeRequest): Promise<FundAccountResponse>;
   addressInfo(memberId: string, customerId: string, addressInfo: IAddressInfo): Promise<IMember>;
   selectAccountLevel(memberId: string, accountLevel: AccountLevel): Promise<IMember>;
-  personalInformation(memberId: string, personalInfo: IPersonalInfo): Promise<IMember>;
+  personalInformation(memberId: string, customerId: string, personalInfo: IPersonalInfo): Promise<IMember>;
   govDisclosureInfo(memberId: string, govDisclosure: IGovDisclosure): Promise<IMember>;
   fundProvider(memberId: string, funding: IFundProvider): Promise<IMember>;
   getStateCityMunicipality(postCode: Partial<IAddressInfo>): Promise<Partial<IAddressInfo>>;
@@ -182,8 +182,8 @@ export interface IPersonalInfo {
   countryOfBirth: string;
   nationality: string;
   placeOfBirth: string;
-  sex: Sex;
-  maritalStatus: MaritalStatus;
+  sex: string;
+  maritalStatus: string;
   hightLevelOfEducation: string;
   profession: string;
   occupation: string;
@@ -194,18 +194,6 @@ export interface IPersonalInfo {
 export interface IFundProvider {
   fundMyself: boolean;
   providerInfo?: ICommonInfo;
-}
-
-export enum Sex {
-  Male = 'Male',
-  Female = 'Female',
-  Other = 'Other'
-}
-
-export enum MaritalStatus {
-  Single = 'Single',
-  Married = 'Married',
-  Divorced = 'Divorced'
 }
 
 export interface IGovDisclosure {

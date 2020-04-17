@@ -122,6 +122,73 @@ export const OnboardErrCodes = Object.freeze({
       errorCode: '622',
       httpCode: 400
     }
+  },
+  personal: {
+    MEEDID_NOT_RELATED: {
+      message: 'Meed Id has NOT been customer related',
+      errorCode: '627',
+      httpCode: 400
+    },
+    GENDER_INCORRECT: {
+      message: 'The value for Gender is incorrect',
+      errorCode: '628',
+      httpCode: 400
+    },
+    BIRTH_COUNTRY_INCORRECT: {
+      message: 'The value for Country of Birth is incorrect',
+      errorCode: '629',
+      httpCode: 400
+    },
+    NATIONALITY_INCORRECT: {
+      message: 'The value for Nationality is incorrect',
+      errorCode: '630',
+      httpCode: 400
+    },
+    STATE_INCORRECT: {
+      message: 'The value for Place (State) of Birth is incorrect',
+      errorCode: '631',
+      httpCode: 400
+    },
+    MARITAL_STATUS_INCORRECT: {
+      message: 'The value for Marital Status is incorrect',
+      errorCode: '632',
+      httpCode: 400
+    },
+    PROFESSION_INCORRECT: {
+      message: 'The value for Profession is incorrect',
+      errorCode: '633',
+      httpCode: 400
+    },
+    OCCUPATION_INCORRECT: {
+      message: 'The value for Occupation is incorrect',
+      errorCode: '634',
+      httpCode: 400
+    },
+    ECONOMIC_ACTIVITY_INCORRECT: {
+      message: 'The value for Economic Activity is incorrect',
+      errorCode: '635',
+      httpCode: 400
+    },
+    EDUCATIONAL_LEVEL_INCORRECT: {
+      message: 'The value for Educational Level is incorrect',
+      errorCode: '636',
+      httpCode: 400
+    },
+    BANXICO_ACTIVITY_INCORRECT: {
+      message: 'The value for Banxico Activity is incorrect',
+      errorCode: '637',
+      httpCode: 400
+    },
+    CLIENT_ALREADY_EXISTS: {
+      message: 'Client Already Exists',
+      errorCode: '624',
+      httpCode: 409
+    },
+    MEED_ID_NOT_FOUND: {
+      message: 'The Meed ID does not exist',
+      errorCode: '612',
+      httpCode: 400
+    }
   }
 });
 
@@ -226,6 +293,40 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
         return this.throwError(OnboardErrCodes.addressInfo.POST_CODE_INCORRECT);
       case '163':
         return this.throwError(OnboardErrCodes.addressInfo.STATE_INCORRECT);
+      default:
+        return this.throwError(INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  static personalInfo(response: InvexResponseData): InvexResponse[] {
+    this.checkSuccess(response);
+    switch (response.busqueda[0]?.respcode) {
+      case '000':
+        return response.busqueda as InvexResponse[];
+      case '135':
+        return this.throwError(OnboardErrCodes.personal.MEEDID_NOT_RELATED);
+      case '137':
+        return this.throwError(OnboardErrCodes.personal.GENDER_INCORRECT);
+      case '139':
+        return this.throwError(OnboardErrCodes.personal.BIRTH_COUNTRY_INCORRECT);
+      case '141':
+        return this.throwError(OnboardErrCodes.personal.NATIONALITY_INCORRECT);
+      case '143':
+        return this.throwError(OnboardErrCodes.personal.STATE_INCORRECT);
+      case '145':
+        return this.throwError(OnboardErrCodes.personal.MARITAL_STATUS_INCORRECT);
+      case '147':
+        return this.throwError(OnboardErrCodes.personal.PROFESSION_INCORRECT);
+      case '149':
+        return this.throwError(OnboardErrCodes.personal.OCCUPATION_INCORRECT);
+      case '153':
+        return this.throwError(OnboardErrCodes.personal.EDUCATIONAL_LEVEL_INCORRECT);
+      case '155':
+        return this.throwError(OnboardErrCodes.personal.BANXICO_ACTIVITY_INCORRECT);
+      case '106':
+        return this.throwError(OnboardErrCodes.personal.CLIENT_ALREADY_EXISTS);
+      case '122':
+        return this.throwError(OnboardErrCodes.personal.MEED_ID_NOT_FOUND);
       default:
         return this.throwError(INTERNAL_SERVER_ERROR);
     }
