@@ -224,8 +224,13 @@ export class OnboardingController {
   }
 
   public static async personalInformation(req: MeedRequest, res: Response): Promise<void> {
-    const memberId = req.headers['meedbankingclub-memberid'] as string;
-    const response = await OnboardingController.createServiceAndSetAuth(req).personalInformation(memberId, req.body);
+    const memberId = req.get('meedbankingclub-memberid');
+    const customerId = req.get('meedbankingclub-customerid');
+    const response = await OnboardingController.createServiceAndSetAuth(req).personalInformation(
+      memberId,
+      customerId,
+      req.body
+    );
     res.status(200).json(response);
   }
 

@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import moment from 'moment';
-import { Sex, MaritalStatus, AccountLevel } from '../../models/bank-onboarding/interface';
+import { AccountLevel } from '../../models/bank-onboarding/interface';
 
 const validateDate = value => {
   if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
@@ -32,13 +32,13 @@ export const CreateLogin = Joi.object({
 const CommonInfo = Joi.object({
   firstName: Joi.string().required(),
   secondName: Joi.string()
-    .optional()
-    .allow(''),
+    .allow('')
+    .optional(),
   dateOfBirth: Joi.string().required(),
   paternalLastName: Joi.string().required(),
   maternalLastName: Joi.string()
-    .optional()
     .allow('')
+    .optional()
 });
 
 export const GeneralInfo = CommonInfo.append({
@@ -79,12 +79,8 @@ export const ApplyForAccount = Joi.object({
       countryOfBirth: Joi.string().required(),
       nationality: Joi.string().required(),
       placeOfBirth: Joi.string().required(),
-      sex: Joi.string()
-        .valid(...Object.values(Sex))
-        .required(),
-      maritalStatus: Joi.string()
-        .valid(...Object.values(MaritalStatus))
-        .required(),
+      sex: Joi.string().required(),
+      maritalStatus: Joi.string().required(),
       hightLevelOfEducation: Joi.string().required(),
       profession: Joi.string().required(),
       occupation: Joi.string().required(),
@@ -144,12 +140,8 @@ export const PersonalInfo = Joi.object({
   countryOfBirth: Joi.string().required(),
   placeOfBirth: Joi.string().required(),
   nationality: Joi.string().required(),
-  sex: Joi.string()
-    .valid(...Object.values(Sex))
-    .required(),
-  maritalStatus: Joi.string()
-    .valid(...Object.values(MaritalStatus))
-    .required(),
+  sex: Joi.string().required(),
+  maritalStatus: Joi.string().required(),
   hightLevelOfEducation: Joi.string().required(),
   occupation: Joi.string().required(),
   profession: Joi.string().required(),
