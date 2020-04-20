@@ -7,7 +7,8 @@ import {
   IScannedIdData,
   MxMemberInfo,
   RegistrationFeePaymentType,
-  IAddressInfo
+  IAddressInfo,
+  IFundProvider
 } from '../../../models/bank-onboarding/interface';
 import HttpStatus from 'http-status-codes';
 import {
@@ -19,7 +20,8 @@ import {
   beneficiaryInfoTempl,
   generalInfoTemplate,
   stateCityMunicipality,
-  personalInfoTemplate
+  personalInfoTemplate,
+  fundProviderRequestTemplate
 } from './templates';
 
 export class RequestMapper {
@@ -172,6 +174,15 @@ export class RequestMapper {
     }
   }
 
+  static fundProvider(customerId: string, funding: IFundProvider) {
+    try {
+      return jsonTransformer(fundProviderRequestTemplate).evaluate({ customerId, ...funding?.providerInfo });
+    } catch (error) {
+      throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+  }
+}
+                                                                    
   static personalInfo(requestBody: any) {
     try {
       return jsonTransformer(personalInfoTemplate).evaluate(requestBody);

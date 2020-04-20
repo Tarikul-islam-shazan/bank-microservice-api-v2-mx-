@@ -227,6 +227,20 @@ export const beneficiaryInfoTempl = `{
   ]
 }`;
 
+export const fundProviderRequestTemplate = `{
+  "metodoNombre": "MTD140",
+  "metodopEntrada": [
+    { "llave": "string", "valor": customerId },
+    { "llave": "string", "valor": paternalLastName },
+    { "llave": "string", "valor": maternalLastName },
+    { "llave": "string", "valor": firstName },
+    { "llave": "string", "valor": secondName },
+    { "llave": "string", "valor": dateOfBirth },
+    { "llave": "string", "valor": "01" },
+    { "llave": "string", "valor": "A" }
+  ]
+}`;
+
 export const personalInfoTemplate = `{
   "metodoNombre": "MTD127",
   "metodopEntrada": [

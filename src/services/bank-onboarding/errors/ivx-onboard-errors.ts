@@ -123,6 +123,13 @@ export const OnboardErrCodes = Object.freeze({
       httpCode: 400
     }
   },
+  fundProvider: {
+    MEED_CUSTID_INVALID: {
+      message: 'Meed Cust ID does not exist',
+      errorCode: '626',
+      httpCode: 400
+    }
+  },
   personal: {
     MEEDID_NOT_RELATED: {
       message: 'Meed Id has NOT been customer related',
@@ -302,6 +309,20 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
         return this.throwError(INTERNAL_SERVER_ERROR);
     }
   }
+
+  static fundProvider(response: InvexResponseData): InvexResponse | InvexResponse[] {
+    this.checkSuccess(response);
+
+    switch (response.busqueda[0]?.respcode) {
+      case '000':
+        return response.busqueda as InvexResponse[];
+      case '122':
+        return this.throwError(OnboardErrCodes.fundProvider.MEED_CUSTID_INVALID);
+      default:
+        return this.throwError(INTERNAL_SERVER_ERROR);
+    }
+  }
+}
 
   static personalInfo(response: InvexResponseData): InvexResponse[] {
     this.checkSuccess(response);

@@ -13,7 +13,8 @@ import {
   PersonalInfo,
   GovDisclosure,
   FundProvider,
-  AddressInfoHeader
+  AddressInfoHeader,
+  FundProviderHeader
 } from './validators';
 import { OnboardingController } from './controller';
 import AuthMiddleware from '../../middleware/authMiddleware';
@@ -86,7 +87,7 @@ export default [
     path: 'v1.0.0/bank/onboarding/apply/fund-provider',
     method: 'post',
     handler: [
-      handleValidation(MemberIdRequired, ValidationLevel.Headers),
+      handleValidation(FundProviderHeader, ValidationLevel.Headers),
       handleValidation(FundProvider),
       asyncWrapper(OnboardingController.fundProvider)
     ]
