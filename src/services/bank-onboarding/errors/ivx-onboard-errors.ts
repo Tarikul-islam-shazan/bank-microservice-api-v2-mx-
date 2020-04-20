@@ -322,7 +322,6 @@ export class IvxOnboardErrMapper extends IvxErrorMapper {
         return this.throwError(INTERNAL_SERVER_ERROR);
     }
   }
-}
 
   static personalInfo(response: InvexResponseData): InvexResponse[] {
     this.checkSuccess(response);

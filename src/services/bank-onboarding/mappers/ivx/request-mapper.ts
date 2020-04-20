@@ -181,8 +181,7 @@ export class RequestMapper {
       throw new HTTPError(error.message, String(HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
     }
   }
-}
-                                                                    
+
   static personalInfo(requestBody: any) {
     try {
       return jsonTransformer(personalInfoTemplate).evaluate(requestBody);
